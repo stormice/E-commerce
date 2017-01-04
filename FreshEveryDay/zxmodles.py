@@ -17,11 +17,10 @@ class TypeInfo(models.Model):
 class GoodsInfo(models.Model):
     gtitle=models.CharField(max_length=20)
     gtype=models.ForeignKey(TypeInfo)
-    gprice=models.DecimalField(5,2)
+    gprice=models.DecimalField(max_digits=5, decimal_places=2)
     gdesc=models.CharField(max_length=200)
     gdetail=models.CharField(max_length=1000)
     gpic=models.CharField(max_length=200)
-    # gunit=models.CharField()
     isDelete=models.BooleanField(default=False)
 class CartInfo(models.Model):
     user=models.ForeignKey(UserInfo)
@@ -30,10 +29,10 @@ class CartInfo(models.Model):
 class OrderInfo(models.Model):
     otime=models.DateTimeField()
     user=models.ForeignKey(UserInfo)
-    ototal=models.DecimalField(8,2)
+    ototal=models.DecimalField(max_digits=8, decimal_places=2)
     state=models.BooleanField(default=False)
 class OrderDetailInfo(models.Model):
     order=models.ForeignKey(OrderInfo)
     goods=models.ForeignKey(GoodsInfo)
     count=models.IntegerField()
-    price=models.DecimalField(8,2)
+    price=models.DecimalField(max_digits=8, decimal_places=2)

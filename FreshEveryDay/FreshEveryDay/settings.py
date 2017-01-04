@@ -37,6 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "FreshOrder",
+    "GoodsShow",
+    "usermode",
+    "shopping_cart"
 )
 
 MIDDLEWARE_CLASSES = (
