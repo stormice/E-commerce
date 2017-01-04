@@ -107,17 +107,17 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,"static")
 ]
-MEDIA_ROOT=os.path.join(BASE_DIR,"static")
-# SESSION_ENGINE = 'redis_sessions.session'
-# SESSION_REDIS_HOST = 'localhost'
-# SESSION_REDIS_PORT = 6379
-# SESSION_REDIS_DB = 0
-# SESSION_REDIS_PASSWORD = ''
-# SESSION_REDIS_PREFIX = 'session'
-# CACHES = {
-#     "default": {
-#         "BACKEND": "redis_cache.cache.RedisCache",
-#         "LOCATION": "localhost:6379",
-#         'TIMEOUT': 60,
-#     },
-# }
+MEDIA_ROOT=os.path.join(BASE_DIR, "static/media")
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_HOST = 'localhost'
+SESSION_REDIS_PORT = 6379
+SESSION_REDIS_DB = 0
+SESSION_REDIS_PASSWORD = ''
+SESSION_REDIS_PREFIX = 'session'
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.cache.RedisCache",
+        "LOCATION": "localhost:6379",
+        'TIMEOUT': 60,
+    },
+}
