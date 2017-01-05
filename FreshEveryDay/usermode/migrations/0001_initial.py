@@ -16,6 +16,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('count', models.IntegerField()),
             ],
+            options={
+                'db_table': 'CartInfo',
+            },
         ),
         migrations.CreateModel(
             name='GoodsInfo',
@@ -28,6 +31,9 @@ class Migration(migrations.Migration):
                 ('gpic', models.CharField(max_length=200)),
                 ('isDelete', models.BooleanField(default=False)),
             ],
+            options={
+                'db_table': 'GoodsInfo',
+            },
         ),
         migrations.CreateModel(
             name='OrderDetailInfo',
@@ -37,6 +43,9 @@ class Migration(migrations.Migration):
                 ('price', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('goods', models.ForeignKey(to='usermode.GoodsInfo')),
             ],
+            options={
+                'db_table': 'OrderDetailInfo',
+            },
         ),
         migrations.CreateModel(
             name='OrderInfo',
@@ -46,6 +55,9 @@ class Migration(migrations.Migration):
                 ('ototal', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('state', models.BooleanField(default=False)),
             ],
+            options={
+                'db_table': 'OrderInfo',
+            },
         ),
         migrations.CreateModel(
             name='TypeInfo',
@@ -54,6 +66,9 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=20)),
                 ('isDelete', models.BooleanField(default=False)),
             ],
+            options={
+                'db_table': 'TypeInfo',
+            },
         ),
         migrations.CreateModel(
             name='UserAddress',
@@ -63,7 +78,11 @@ class Migration(migrations.Migration):
                 ('uaddress', models.CharField(max_length=100, null=True, blank=True)),
                 ('uphone', models.CharField(max_length=11)),
                 ('ucode', models.CharField(max_length=6)),
+                ('ustaue', models.BooleanField(default=False)),
             ],
+            options={
+                'db_table': 'UserAddress',
+            },
         ),
         migrations.CreateModel(
             name='UserInfo',
@@ -74,6 +93,9 @@ class Migration(migrations.Migration):
                 ('uemail', models.CharField(max_length=40)),
                 ('isDelete', models.BooleanField(default=False)),
             ],
+            options={
+                'db_table': 'UserInfo',
+            },
         ),
         migrations.AddField(
             model_name='useraddress',
