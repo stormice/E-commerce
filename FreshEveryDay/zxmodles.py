@@ -37,7 +37,7 @@ class GoodsInfo(models.Model):
     gdesc=models.CharField(max_length=200)
     gdetail=models.CharField(max_length=1000)
     gpic=models.CharField(max_length=200)
-    # gunit=models.CharField()
+    gunit=models.CharField(max_length=8)
     isDelete=models.BooleanField(default=False)
     class Meta():
         db_table = 'GoodsInfo'
