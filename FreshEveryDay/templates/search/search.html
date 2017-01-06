@@ -58,7 +58,6 @@
 			</div>
 
 			<ul class="goods_type_list clearfix">
-
                 {% for goods in page.object_list %}
 				<li>
 					<a href="/GoodsShow/detail{{ goods.object.id }}.html"><img src={{ goods.object.gpic }}></a>
@@ -69,10 +68,10 @@
 						<a href="#" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
-                 {% empty %}
-                    <div style="text-align:center">
-                        <em style="font-size: 30px;"> "哎呀,客官别急~~,我们为您火速备货中……" </em>
-                    </div>
+{#                 {% empty %}#}
+{#                    <div style="text-align:center">#}
+{#                        <em style="font-size: 30px;"> "哎呀,客官别急~~,我们为您火速备货中……" </em>#}
+{#                    </div>#}
                 {% endfor %}
 
 			</ul>
