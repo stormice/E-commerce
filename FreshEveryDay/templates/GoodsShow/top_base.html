@@ -1,0 +1,62 @@
+{% extends 'g_base.html' %}
+{% comment %}
+    二级基模板:
+        顶部登陆什么的
+{% endcomment %}
+ {% block header %}
+     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+     <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+     {% block title %}
+     {% endblock title %}
+     <script type="text/javascript">
+
+          $(function(){
+              $.get("/GoodsShow/getsession/", function(session){
+
+                  loginfo =$('.login_info');
+                  logbtn = $('.login_btn');
+                  if (session.uname != null)
+                  {
+                      logbtn.attr('style', 'display:none');
+                      loginfo.attr('style', 'display:inline-block');
+                      loginfo.html('欢迎您：<em>'+session.uname+'</em>');
+                  }
+              });
+          });
+
+        </script>
+ {% endblock header %}
+
+
+{% block  body_without_footer%}
+    {#此处开始为顶部注册登陆什么的#}
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到天天生鲜!</div>
+			<div class="fr">
+				<div class="login_info fl">
+					欢迎您：<em></em>
+				</div>
+				<div class="login_btn fl">
+					<a href="/usermode/login/">登录</a>
+					<span>|</span>
+					<a href="/usermode/register/">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="/usermode/user_center_info/">用户中心</a>
+					<span>|</span>
+					<a href="cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>
+	</div>
+    {#此处为顶部注册登陆什么的结束#}
+{% block body_without_footer_inblock %}
+
+{% endblock body_without_footer_inblock%}
+{% endblock body_without_footer%}
+</body>
+</html>

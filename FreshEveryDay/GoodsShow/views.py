@@ -17,7 +17,7 @@ def index(request):
         listDst=[]
         for item in listSrc:
 
-            listDst.append({'gtitle':item.gtitle, 'gprice':item.gprice, 'gpic':item.gpic})
+            listDst.append({'id':item.id, 'gtitle':item.gtitle, 'gprice':item.gprice, 'gpic':item.gpic})
 
         typename = item.gtype.title
 
@@ -32,7 +32,7 @@ def index(request):
     #04禽类蛋品
     #05新鲜蔬菜
     #06速冻食品
-    # return JsonResponse({'listData':listGoods})
+
     context = {'listData': listGoods}
     return render(request, 'GoodsShow/index.html',context)
 
@@ -44,33 +44,36 @@ def list(request, typeId, pageId):
     if pageId is None:
         typeId = '1'
     listSrc = GoodsInfo.objects.filter(gtype_id = int(typeId)).order_by('-gprice')
-    listDst = []
-    for item in listSrc:
-        listDst.append({'id':item.id,'gtitle': item.gtitle, 'gprice': item.gprice, 'gpic': item.gpic})
-    paginator =Paginator(listDst,15)
+
+    paginator =Paginator(listSrc,15)
     page=paginator.page(int(pageId))
 
     #推荐商品部分，取id最大的两个
     listRec_R =GoodsInfo.objects.filter(gtype_id = int(typeId)).order_by('-id')[0:2]
-    listRec_D =[]
-    for item in listRec_R:
-        listRec_D.append({'id':item.id,'gtitle': item.gtitle, 'gprice': item.gprice, 'gpic': item.gpic})
 
-    context={'page':page, 'Rec':listRec_D, 'typeId':typeId}
+    # typeTitle = TypeInfo.objects.get(pk=int(typeId)).title
+
+    context={'page':page, 'Rec':listRec_R, 'typeId':int(typeId)}
     return render(request,  'GoodsShow/list.html',context)
 
 
 
 def detail(request, goodsId):
     goods= GoodsInfo.objects.get(pk = int(goodsId) )
+    typeId= goods.gtype_id
 
-    # {'id':item.id,'gtitle': item.gtitle, 'gprice': item.gprice, 'gpic': item.gpic})
 
     # 推荐商品部分，取id最大的两个
-    listRec_R = GoodsInfo.objects.filter(gtype_id = goods.gtype_id).order_by('-id')[0:2]
-    listRec_D = []
-    for item in listRec_R:
-        listRec_D.append({'id': item.id, 'gtitle': item.gtitle, 'gprice': item.gprice, 'gpic': item.gpic})
+    listRec_R = GoodsInfo.objects.filter(gtype_id = typeId).order_by('-id')[0:2]
 
-    context={'goods':goods, 'Rec':listRec_D}
+    # typeTitle = goods.gtype.title
+
+    context={'goods':goods, 'Rec':listRec_R}
     return render(request,  'GoodsShow/detail.html', context)
+
+def getsession(request):
+    # request.session['uname'] = '大美人'
+    request.session.flush()
+    uname = request.session.get('uname')
+
+    return JsonResponse({'uname': uname})

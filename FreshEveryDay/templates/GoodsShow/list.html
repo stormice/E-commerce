@@ -68,9 +68,10 @@
 	</div>
 
 	<div class="breadcrumb">
-		<a href="#">全部分类</a>
+		<a href="/GoodsShow/">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
+{#		<a href="/GoodsShow/list{{typeId}}/1">{{typeTitle }}</a>#}
+        <a href="/GoodsShow/list{{Rec.0.gtype_id  }}/1">{{Rec.0.gtype.title }}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -117,7 +118,7 @@
                     {% if pi = page.number %}
                         <a href="#" class="active">{{ pi}}</a>
                     {% else %}
-                        <a href="/GoodsShow/list{{ typeId }}/1" class="active">{{ pi}}</a>
+                        <a href="/GoodsShow/list{{ typeId }}/{{ pi}}" class="active">{{ pi}}</a>
                     {% endif %}
 
                 {% endfor %}

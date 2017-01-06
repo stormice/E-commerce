@@ -50,12 +50,12 @@
 				<h1>全部商品分类</h1>
 				<span></span>
 				<ul class="subnav">
-					<li><a href="#" class="fruit">新鲜水果</a></li>
-					<li><a href="#" class="seafood">海鲜水产</a></li>
-					<li><a href="#" class="meet">猪牛羊肉</a></li>
-					<li><a href="#" class="egg">禽类蛋品</a></li>
-					<li><a href="#" class="vegetables">新鲜蔬菜</a></li>
-					<li><a href="#" class="ice">速冻食品</a></li>
+					<li><a href="/GoodsShow/list1/1" class="fruit">新鲜水果</a></li>
+					<li><a href="/GoodsShow/list2/1" class="seafood">海鲜水产</a></li>
+					<li><a href="/GoodsShow/list3/1" class="meet">猪牛羊肉</a></li>
+					<li><a href="/GoodsShow/list4/1" class="egg">禽类蛋品</a></li>
+					<li><a href="/GoodsShow/list5/1" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/GoodsShow/list6/1" class="ice">速冻食品</a></li>
 				</ul>
 			</div>
 			<ul class="navlist fl">
@@ -69,9 +69,10 @@
 	</div>
 
 	<div class="breadcrumb">
-		<a href="#">全部分类</a>
+		<a href="/GoodsShow/">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
+{#		<a href="/GoodsShow/list{{typeId}}/1">{{typeTitle }}</a>#}
+        <a href="/GoodsShow/list{{goods.gtype_id }}/1">{{goods.gtype.title }}</a>
 		<span>></span>
 		<a href="#">商品详情</a>
 	</div>
@@ -84,7 +85,7 @@
 			<p>{{ goods.gdesc }}</p>
 			<div class="prize_bar">
 				<span class="show_pirze">¥<em>{{ goods.gprice }}</em></span>
-				<span class="show_unit">单  位：500g</span>
+				<span class="show_unit">单  位：{{ goods. }}</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
@@ -96,7 +97,7 @@
 			</div>
 			<div class="total">总价：<em>16.80元</em></div>
 			<div class="operate_btn">
-				<a href="javascript:;" class="buy_btn">立即购买</a>
+				<a href="/FreshOrder/?id={{ goods.id }}&num=" class="buy_btn">立即购买</a>
 				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>

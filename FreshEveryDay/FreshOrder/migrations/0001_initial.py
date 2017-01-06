@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('count', models.IntegerField()),
                 ('price', models.DecimalField(max_digits=8, decimal_places=2)),
-                ('goods', models.ForeignKey(to='shopping_cart.GoodsInfo')),
+                ('goods', models.ForeignKey(to='FreshOrder.GoodsInfo')),
             ],
             options={
                 'db_table': 'OrderDetailInfo',
@@ -101,31 +101,31 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='useraddress',
             name='user',
-            field=models.ForeignKey(to='shopping_cart.UserInfo'),
+            field=models.ForeignKey(to='FreshOrder.UserInfo'),
         ),
         migrations.AddField(
             model_name='orderinfo',
             name='user',
-            field=models.ForeignKey(to='shopping_cart.UserInfo'),
+            field=models.ForeignKey(to='FreshOrder.UserInfo'),
         ),
         migrations.AddField(
             model_name='orderdetailinfo',
             name='order',
-            field=models.ForeignKey(to='shopping_cart.OrderInfo'),
+            field=models.ForeignKey(to='FreshOrder.OrderInfo'),
         ),
         migrations.AddField(
             model_name='goodsinfo',
             name='gtype',
-            field=models.ForeignKey(to='shopping_cart.TypeInfo'),
+            field=models.ForeignKey(to='FreshOrder.TypeInfo'),
         ),
         migrations.AddField(
             model_name='cartinfo',
             name='goods',
-            field=models.ForeignKey(to='shopping_cart.GoodsInfo'),
+            field=models.ForeignKey(to='FreshOrder.GoodsInfo'),
         ),
         migrations.AddField(
             model_name='cartinfo',
             name='user',
-            field=models.ForeignKey(to='shopping_cart.UserInfo'),
+            field=models.ForeignKey(to='FreshOrder.UserInfo'),
         ),
     ]
