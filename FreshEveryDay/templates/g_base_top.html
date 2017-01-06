@@ -5,6 +5,22 @@
 {% endcomment %}
 {% block  body_without_footer%}
 
+    <script type="text/javascript">
+
+          $(function(){
+              $.get("/getsession", function(session){
+                  loginfo =$('.login_info');
+                  logbtn = $('.login_btn');
+                  if (session.uname != null)
+                  {
+                      logbtn.attr('style', 'display:none');
+                      loginfo.attr('style', 'display:inline-block');
+                      loginfo.html('欢迎您：<em>'+session.uname+'</em>');
+                  }
+              });
+          });
+
+        </script>
 
     {#此处开始为顶部注册登陆什么的#}
 	<div class="header_con">

@@ -18,7 +18,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r"^FreshOrder/",include("FreshOrder.urls")),
+    url(r"^", include("Adm_Sr_Mod.urls")),
+    url(r'^search/', include('haystack.urls')),
+    # url(r"^FreshOrder/",include("FreshOrder.urls")),
     url(r"^GoodsShow/",include("GoodsShow.urls")),
     url(r"^usermode/",include("usermode.urls")),
     url(r"^usermode/",include("usermode.urls")),

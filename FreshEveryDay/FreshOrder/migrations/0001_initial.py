@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('count', models.IntegerField()),
             ],
             options={
-                'db_table': 'cartinfo',
+                'db_table': 'CartInfo',
             },
         ),
         migrations.CreateModel(
@@ -29,10 +29,11 @@ class Migration(migrations.Migration):
                 ('gdesc', models.CharField(max_length=200)),
                 ('gdetail', models.CharField(max_length=1000)),
                 ('gpic', models.CharField(max_length=200)),
+                ('gunit', models.CharField(max_length=8)),
                 ('isDelete', models.BooleanField(default=False)),
             ],
             options={
-                'db_table': 'goodsinfo',
+                'db_table': 'GoodsInfo',
             },
         ),
         migrations.CreateModel(
@@ -41,10 +42,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('count', models.IntegerField()),
                 ('price', models.DecimalField(max_digits=8, decimal_places=2)),
-                ('goods', models.ForeignKey(to='shopping_cart.GoodsInfo')),
+                ('goods', models.ForeignKey(to='FreshOrder.GoodsInfo')),
             ],
             options={
-                'db_table': 'orderdetailinfo',
+                'db_table': 'OrderDetailInfo',
             },
         ),
         migrations.CreateModel(
@@ -56,7 +57,7 @@ class Migration(migrations.Migration):
                 ('state', models.BooleanField(default=False)),
             ],
             options={
-                'db_table': 'orderinfo',
+                'db_table': 'OrderInfo',
             },
         ),
         migrations.CreateModel(
@@ -67,7 +68,7 @@ class Migration(migrations.Migration):
                 ('isDelete', models.BooleanField(default=False)),
             ],
             options={
-                'db_table': 'typeinfo',
+                'db_table': 'TypeInfo',
             },
         ),
         migrations.CreateModel(
@@ -78,9 +79,10 @@ class Migration(migrations.Migration):
                 ('uaddress', models.CharField(max_length=100, null=True, blank=True)),
                 ('uphone', models.CharField(max_length=11)),
                 ('ucode', models.CharField(max_length=6)),
+                ('ustaue', models.BooleanField(default=False)),
             ],
             options={
-                'db_table': 'useraddress',
+                'db_table': 'UserAddress',
             },
         ),
         migrations.CreateModel(
@@ -93,37 +95,37 @@ class Migration(migrations.Migration):
                 ('isDelete', models.BooleanField(default=False)),
             ],
             options={
-                'db_table': 'userinfo',
+                'db_table': 'UserInfo',
             },
         ),
         migrations.AddField(
             model_name='useraddress',
             name='user',
-            field=models.ForeignKey(to='shopping_cart.UserInfo'),
+            field=models.ForeignKey(to='FreshOrder.UserInfo'),
         ),
         migrations.AddField(
             model_name='orderinfo',
             name='user',
-            field=models.ForeignKey(to='shopping_cart.UserInfo'),
+            field=models.ForeignKey(to='FreshOrder.UserInfo'),
         ),
         migrations.AddField(
             model_name='orderdetailinfo',
             name='order',
-            field=models.ForeignKey(to='shopping_cart.OrderInfo'),
+            field=models.ForeignKey(to='FreshOrder.OrderInfo'),
         ),
         migrations.AddField(
             model_name='goodsinfo',
             name='gtype',
-            field=models.ForeignKey(to='shopping_cart.TypeInfo'),
+            field=models.ForeignKey(to='FreshOrder.TypeInfo'),
         ),
         migrations.AddField(
             model_name='cartinfo',
             name='goods',
-            field=models.ForeignKey(to='shopping_cart.GoodsInfo'),
+            field=models.ForeignKey(to='FreshOrder.GoodsInfo'),
         ),
         migrations.AddField(
             model_name='cartinfo',
             name='user',
-            field=models.ForeignKey(to='shopping_cart.UserInfo'),
+            field=models.ForeignKey(to='FreshOrder.UserInfo'),
         ),
     ]
