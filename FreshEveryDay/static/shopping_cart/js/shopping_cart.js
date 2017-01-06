@@ -126,10 +126,9 @@ $(function () {
             }
         });
         // 通过ajax传递数据
-        $.get('',{'idList': $idList})
+        $.get('/cart_order/',{'idList': $idList})
     })
 
 });
-
 
 
