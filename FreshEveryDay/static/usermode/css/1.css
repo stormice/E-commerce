@@ -1,3 +1,9 @@
 .login_info{
     display: block;
 }
+.common_title2 a{
+    color:#666;
+}
+.common_title2 a:hover{
+    color:#f80;
+}
