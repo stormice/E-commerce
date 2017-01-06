@@ -39,8 +39,8 @@ $(function(){
 
 
 	function check_user_name(){
-		var value1 = $('#user_name').val();
-		var len=$('#user_name').val().length;
+		var value1 = $('#user_name').val().trim();
+		var len=value1.length;
 		if(len<5||len>20)
 		{
 			$('#user_name').next().html('请输入5-20个字符的用户名')
@@ -63,7 +63,7 @@ $(function(){
 	}
 
 	function check_pwd(){
-		var len = $('#pwd').val().length;
+		var len = $('#pwd').val().trim().length;
 		if(len<8||len>20)
 		{
 			$('#pwd').next().html('密码最少8位，最长20位')
@@ -79,8 +79,8 @@ $(function(){
 
 
 	function check_cpwd(){
-		var pass = $('#pwd').val();
-		var cpass = $('#cpwd').val();
+		var pass = $('#pwd').val().trim();
+		var cpass = $('#cpwd').val().trim();
 
 		if(pass!=cpass)
 		{
@@ -99,7 +99,7 @@ $(function(){
 	function check_email(){
 		var re = /^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$/;
 
-		if(re.test($('#email').val()))
+		if(re.test($('#email').val().trim()))
 		{
 			$('#email').next().hide();
 			error_email = false;
