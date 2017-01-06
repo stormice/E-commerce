@@ -52,23 +52,27 @@
 		<div class="right_content clearfix">
 			<h3 class="common_title2">编辑地址</h3>
 				<div class="site_con">
-					<form method="post" action="/usermode/addr_save/">
+					<form method="post" action="/usermode/addr_save/" id="site_con_form1">
 						{% csrf_token %}
 						<div class="form_group">
 							<label>收件人：</label>
-							<input type="text" name="username">
+							<input type="text" id="username" name="username">
+							<div class="err_info">输入错误</div>
 						</div>
 						<div class="form_group form_group2">
 							<label>详细地址：</label>
-							<textarea class="site_area"  name="useraddress"></textarea>
+							<textarea class="site_area" id="useraddress" name="useraddress"></textarea>
+							<div  class="err_info">输入错误</div>
 						</div>
 						<div class="form_group">
 							<label>邮编：</label>
-							<input type="text" name="ucode">
+							<input type="text" id="ucode" name="ucode">
+							<div  class="err_info">输入错误</div>
 						</div>
 						<div class="form_group">
 							<label>手机：</label>
-							<input type="text" name="uphone">
+							<input type="tel" id="uphone" name="uphone">
+							<div class="err_info">输入错误</div>
 						</div>
 
 						<input type="submit" name="" value="提交" class="info_submit">
@@ -92,6 +96,118 @@
 		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
-	
+	<script src="/static/js/jquery-1.12.4.min.js"></script>
+	<script>
+		$(function(){
+			var error_name = false;
+			var error_address = false;
+			var error_tel = false;
+			var error_code = false;
+			$('#username').blur(function(){
+				check_username();
+			})
+
+
+			$('#useraddress').blur(function(){
+				check_useraddress();
+			})
+
+
+			$('#ucode').blur(function(){
+				check_ucode();
+			})
+
+
+			$('#uphone').blur(function(){
+				check_uphone();
+			})
+
+
+			function check_username(){
+				var value1 = $('#username').val().trim();
+				var len=value1.length;
+				if(len<5||len>20)
+				{
+					$('#user_name').next().html('*请输入5-20个字符的收件人姓名')
+					$('#user_name').next().css('display','inline-block');
+					error_name = true;
+				}else{
+					$('#user_name').next().hide();
+					error_name = false;
+				}
+			}
+
+
+			function check_useraddress(){
+				var value1 = $('#useraddress').val().trim();
+				var len=value1.length;
+				if(len<10||len>100)
+				{
+					$('#useraddress').next().html('*请输入10-100个字符的收件人地址')
+					$('#useraddress').next().css('display','inline-block');
+					error_address = true;
+				}else{
+					$('#useraddress').next().hide();
+					error_address = false;
+				}
+			}
+
+			function check_ucode(){
+				var re = /^\d{6}$/;
+
+				if(re.test($('#ucode').val().trim()))
+				{
+					$('#ucode').next().hide();
+					error_code = false;
+				}
+				else
+				{
+					$('#ucode').next().html('*你输入的邮编格式不正确')
+					$('#ucode').next().css('display','inline-block');
+					error_code = true;
+				}
+
+			}
+
+
+			function check_uphone(){
+				var re = /^1[3|4|5|8][0-9]\d{4,8}$/;
+
+				if(re.test($('#uphone').val().trim()))
+				{
+					$('#uphone').next().hide();
+					error_tel = false;
+				}
+				else
+				{
+					$('#uphone').next().html('*请输入11位数的手机号码')
+					$('#uphone').next().css('display','inline-block');
+					error_tel = true;
+				}
+			}
+
+
+
+			$('#site_con_form1').submit(function(){
+				check_user_name();
+				check_pwd();
+				check_cpwd();
+				check_email();
+
+				if(error_name == false && error_address == false &&
+error_tel == false && error_code == false)
+				{
+					alert('注册成功!')
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+
+			})
+
+		})
+	</script>
 </body>
 </html>
