@@ -39,10 +39,10 @@ def index(request):
 
 def list(request, typeId, pageId):
     #列表展示部分
-    if typeId is None:
+    if typeId == '' :
         typeId = '1'
-    if pageId is None:
-        typeId = '1'
+    if pageId == '' :
+        pageId = '1'
     listSrc = GoodsInfo.objects.filter(gtype_id = int(typeId)).order_by('-gprice')
 
     paginator =Paginator(listSrc,15)
