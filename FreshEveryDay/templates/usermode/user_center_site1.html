@@ -6,8 +6,6 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/static/usermode/css/1.css">
-	<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="/static/usermode/js/1.js"></script>
 </head>
 <body>
 	<div class="header_con">
@@ -15,7 +13,7 @@
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
 				<div class="login_info fl">
-					欢迎您：<em>{{user.uname}}</em>
+					欢迎您：<em>{{uname}}</em>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
@@ -48,38 +46,34 @@
 			<ul>
 				<li><a href="/usermode/user_center_info/">· 个人信息</a></li>
 				<li><a href="user_center_order.html">· 全部订单</a></li>
-				<li><a href="user_center_site.html" class="active">· 收货地址</a></li>
+				<li><a href="/usermode/user_center_site/" class="active">· 收货地址</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
-				<h3 class="common_title2">收货地址</h3>
+			<h3 class="common_title2">编辑地址</h3>
 				<div class="site_con">
-					<dl  id="site_con_dl">
-						<dt>默认地址：</dt>
-						<dd>
-							{% if defaultAddress == 'no' %}
-							无
-							{% else %}
-							{{defaultAddress.uaddress}}&nbsp;&nbsp;&nbsp;&nbsp;({{defaultAddress.userName}} &nbsp;收) &nbsp;&nbsp;&nbsp;&nbsp; {{defaultAddress.uphone}}
-							{% endif %}
-						</dd>
-					</dl>
-					<dl>
-						<dt>设置默认地址：</dt>
-						<dd>
-							<form>
-								<select name="address" id="">
-																									<option value="0">请选择收货地址</option>
-									{% for x in useraddress %}
+					<form method="post" action="/usermode/addr_save/">
+						{% csrf_token %}
+						<div class="form_group">
+							<label>收件人：</label>
+							<input type="text" name="username">
+						</div>
+						<div class="form_group form_group2">
+							<label>详细地址：</label>
+							<textarea class="site_area"  name="useraddress"></textarea>
+						</div>
+						<div class="form_group">
+							<label>邮编：</label>
+							<input type="text" name="ucode">
+						</div>
+						<div class="form_group">
+							<label>手机：</label>
+							<input type="text" name="uphone">
+						</div>
 
-									<option value="{{x.id}}">{{x.uaddress}}&nbsp;&nbsp;&nbsp;&nbsp;({{x.userName}} &nbsp;收) &nbsp;&nbsp;&nbsp;&nbsp; {{x.uphone}}</option>
-									{% endfor %}
-								</select>
-							</form>
-						</dd>
-					</dl>					
+						<input type="submit" name="" value="提交" class="info_submit">
+					</form>
 				</div>
-				<h3 class="common_title2"><a href="/usermode/user_center_site1/">编辑地址</a></h3>
 		</div>
 	</div>
 
