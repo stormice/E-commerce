@@ -143,6 +143,48 @@ def exit(request):
     if request.session.has_key('uname'):
         del request.session['uname']
     return redirect('/GoodsShow/')
+def forgetpwd(request):
+    return render(request,'usermode/user_center_forgetpwd.html')
+def forgetpwd_handle(request):
+    name=request.POST['uname']
+    email= request.POST['email']
+
+    list=UserInfo.objects.filter(isDelete=False,uname=name)
+    if list.count()!=0:
+        if list[0].uemail==email:
+            context={'name':list[0].uname}
+            return render(request,'usermode/resetpwd.html',context)
+        else:
+            context = {'err':'pwd'}
+            return render(request, 'usermode/misspwd.html',context)
+    else:
+        context = {'err': 'name'}
+        return render(request, 'usermode/misspwd.html', context)
+def resetpwd_handle(request):
+    name=request.POST['name']
+    pwd= request.POST['pwd']
+
+    a=hashlib.sha1()
+    a.update(pwd)
+    a=a.hexdigest()
+
+    list = UserInfo.objects.filter(isDelete=False, uname=name)[0]
+    list.upwd=a
+    list.save()
+
+    request.session['uname'] = name
+    request.session.set_expiry(0)
+
+    context={'user':list}
+    return render(request,'usermode/changepwdsucess.html',context)
+
+
+
+
+
+
+
+
 
 
 
