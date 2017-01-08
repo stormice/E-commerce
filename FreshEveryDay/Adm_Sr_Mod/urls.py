@@ -5,5 +5,7 @@ urlpatterns = [
     url(r"^test$",views.test),
     url(r"^searchtest",views.search),
     url(r"^getsession$",views.getsession),
-    url(r"^$",include("GoodsShow.urls"))
+    url(r"^$",include("GoodsShow.urls")),
+    url(r"^comment$",views.comment),
+    url(r"^commentInfo$",views.commentInfo)
 ]

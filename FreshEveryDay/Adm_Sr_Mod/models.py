@@ -1,8 +1,6 @@
 # encoding=utf-8
 from django.db import models
-
-
-# Create your models here.
+from tinymce.models import HTMLField
 class UserInfo(models.Model):
     uname=models.CharField(max_length=20)
     upwd=models.CharField(max_length=50)
@@ -50,7 +48,8 @@ class GoodsInfo(models.Model):
     def __str__(self):
         return self.gtitle.encode("utf-8");
 
-
+    gdesc=HTMLField()
+    gdetail=HTMLField()
 class CartInfo(models.Model):
     user=models.ForeignKey(UserInfo)
     goods=models.ForeignKey(GoodsInfo)
@@ -58,7 +57,7 @@ class CartInfo(models.Model):
     class Meta():
         db_table = 'CartInfo'
     def __str__(self):
-        return self.user.encode("utf-8");
+        return self.user;
 
 
 
@@ -70,7 +69,7 @@ class OrderInfo(models.Model):
     class Meta():
         db_table = 'OrderInfo'
     def __str__(self):
-        return self.user.encode("utf-8");
+        return self.user;
 
 
 class OrderDetailInfo(models.Model):
@@ -81,4 +80,21 @@ class OrderDetailInfo(models.Model):
     class Meta():
         db_table = 'OrderDetailInfo'
     def __str__(self):
-        return self.order.encode("utf-8");
+        return self.user;
+class AreaInfo(models.Model):
+    atitle = models.CharField(max_length=20)
+    aParent = models.ForeignKey('self', null=True, blank=True)
+    class Meta():
+        db_table = 'AreaInfo'
+
+    def __str__(self):
+        return self.atitle.encode("utf-8");
+class Gcomment(models.Model):
+    user=models.ForeignKey(UserInfo)
+    goods=models.ForeignKey(GoodsInfo)
+    gcomment=models.CharField(max_length=2000)
+    class Meta():
+        db_table = 'Gcomment'
+    def __str__(self):
+        return self.user;
+    gcomment=HTMLField()

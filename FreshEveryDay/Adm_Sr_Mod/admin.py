@@ -38,5 +38,12 @@ class OrderInfoAdmin(admin.ModelAdmin):
 class OrderDetailInfoAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ["order"]
-
+@admin.register(AreaInfo)
+class AreaInfoAdmin(admin.ModelAdmin):
+    list_per_page = 10
+    search_fields = ["atitle"]
+@admin.register(Gcomment)
+class GcommentAdmin(admin.ModelAdmin):
+    list_per_page = 10
+    search_fields = ["user","goods"]
 

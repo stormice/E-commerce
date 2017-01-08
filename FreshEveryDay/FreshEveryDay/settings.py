@@ -42,7 +42,8 @@ INSTALLED_APPS = (
     "FreshOrder",
     "GoodsShow",
     "usermode",
-    "shopping_cart"
+    "shopping_cart",
+    'tinymce'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -134,3 +135,8 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
+}

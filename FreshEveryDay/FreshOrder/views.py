@@ -9,7 +9,7 @@ from datetime import datetime
 def one_order(request):
     gid=5
     gcount=3
-    userid = 3
+    userid = 1
     uid=UserInfo.objects.get(pk=userid)
 
     list=GoodsInfo.objects.get(pk=gid)
