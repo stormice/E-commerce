@@ -1,14 +1,14 @@
 # encoding=utf-8
 from django.db import models
-
-
-# Create your models here.
+from tinymce.models import HTMLField
 class UserInfo(models.Model):
     uname=models.CharField(max_length=20)
     upwd=models.CharField(max_length=50)
     uemail=models.CharField(max_length=40)
     isDelete=models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.uname.encode("utf-8");
     class Meta():
         db_table ='UserInfo'
 
@@ -19,6 +19,8 @@ class UserAddress(models.Model):
     uphone=models.CharField(max_length=11)
     ucode=models.CharField(max_length=6)
     ustaue=models.BooleanField(default=False)
+    def __str__(self):
+        return self.userName.encode("utf-8");
     class Meta():
         db_table ='UserAddress'
 
@@ -28,6 +30,8 @@ class TypeInfo(models.Model):
 
     class Meta():
         db_table = 'TypeInfo'
+    def __str__(self):
+        return self.title.encode("utf-8");
 
 
 class GoodsInfo(models.Model):
@@ -41,14 +45,20 @@ class GoodsInfo(models.Model):
     isDelete=models.BooleanField(default=False)
     class Meta():
         db_table = 'GoodsInfo'
+    def __str__(self):
+        return self.gtitle.encode("utf-8");
 
-
+    gdesc=HTMLField()
+    gdetail=HTMLField()
 class CartInfo(models.Model):
     user=models.ForeignKey(UserInfo)
     goods=models.ForeignKey(GoodsInfo)
     count=models.IntegerField()
     class Meta():
         db_table = 'CartInfo'
+    def __str__(self):
+        return self.user;
+
 
 
 class OrderInfo(models.Model):
@@ -58,6 +68,8 @@ class OrderInfo(models.Model):
     state=models.BooleanField(default=False)
     class Meta():
         db_table = 'OrderInfo'
+    def __str__(self):
+        return self.user;
 
 
 class OrderDetailInfo(models.Model):
@@ -67,3 +79,22 @@ class OrderDetailInfo(models.Model):
     price=models.DecimalField(max_digits=8, decimal_places=2)
     class Meta():
         db_table = 'OrderDetailInfo'
+    def __str__(self):
+        return self.user;
+class AreaInfo(models.Model):
+    atitle = models.CharField(max_length=20)
+    aParent = models.ForeignKey('self', null=True, blank=True)
+    class Meta():
+        db_table = 'AreaInfo'
+
+    def __str__(self):
+        return self.atitle.encode("utf-8");
+class Gcomment(models.Model):
+    user=models.ForeignKey(UserInfo)
+    goods=models.ForeignKey(GoodsInfo)
+    gcomment=models.CharField(max_length=2000)
+    class Meta():
+        db_table = 'Gcomment'
+    def __str__(self):
+        return self.gcomment;
+    gcomment=HTMLField()

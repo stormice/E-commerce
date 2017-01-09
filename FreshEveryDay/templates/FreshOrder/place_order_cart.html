@@ -1,12 +1,5 @@
 {% extends 'g_base_top_rightsearch.html' %}
-{% block header %}
-    <script src="/static/js/jquery-1.12.4.min.js"></script>
-    <script src="/static/js/jquery-ui.min.js"></script>
-    <script src="/static/js/jquery.cookie.js"></script>
-    <script src="/static/js/register.js"></script>
-    <script src="/static/js/slide.js"></script>
-    <script src="/static/FreshOrder/js/my2.js"></script>
-{% endblock header %}
+
 
 {% block right_search_page_center %}
 
@@ -17,7 +10,9 @@
 	<div class="common_list_con clearfix">
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input type="radio" name="" checked="">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+            {% for u in userlist %}
+			<dd><input type="radio" name="" checked="">{{ u.uadd }}（{{ u.uname }} 收） {{ u.uphone }}</dd>
+            {% endfor %}
 		</dl>
 		<a href="user_center_site.html" class="edit_site">编辑收货地址</a>
 
@@ -47,57 +42,39 @@
 			<li class="col04">数量</li>
 			<li class="col05">小计</li>		
 		</ul>
-        <!--
-		<ul class="goods_list_td clearfix">
-			<li class="col01">1</li>
-			<li class="col02"><img src="images/goods/goods012.jpg"></li>
-			<li class="col03">奇异果</li>
-			<li class="col04">500g</li>
-			<li class="col05">25.80元</li>
-			<li class="col06">1</li>
-			<li class="col07">25.80元</li>
-		</ul>
-		<ul class="goods_list_td clearfix">
-			<li class="col01">2</li>
-			<li class="col02"><img src="images/goods/goods003.jpg"></li>
-			<li class="col03">大兴大棚草莓</li>
-			<li class="col04">500g</li>
-			<li class="col05">16.80元</li>
-			<li class="col06">1</li>
-			<li class="col07">16.80元</li>
-		</ul>
-		-->
-        <!--
+
         <ul class="goods_list_td clearfix">
-			<li class="col01">1</li>
-			<li class="col02"><img src="{{ data }}"></li>
-			<li class="col03">{{ data.gtitle }}</li>
+            {% for n in goodslist %}
+			<li class="col01">{{ n.num }}</li>
+			<li class="col02"><img src="{{ n.gpic }}"></li>
+			<li class="col03">{{ n.gtitle }}</li>
 			<li class="col04">500g</li>
-			<li class="col05">{{ data.gprice }}元</li>
-			<li class="col06">1</li>
-			<li class="col07">16.80元</li>
+			<li class="col05">{{ n.gprice }}元</li>
+			<li class="col06">{{ n.gcount }}</li>
+			<li class="col07">{{ n.totalprice }}元</li>
+            {% endfor %}
 		</ul>
 
-        -->
+
 	</div>
 
 	<h3 class="common_title">总金额结算</h3>
 
 
 	<div class="common_list_con clearfix" id="pay_total">
-        <!--
+
 
 		<div class="settle_con">
-			<div class="total_goods_count">共<em>2</em>件商品，总金额<b>42.60元</b></div>
+			<div class="total_goods_count">共<em>{{ totalcount }}</em>件商品，总金额<b>{{ total }}元</b></div>
 			<div class="transit">运费：<b>10元</b></div>
-			<div class="total_pay">实付款：<b>52.60元</b></div>
+			<div class="total_pay">实付款：<b>{{ totalsum }}元</b></div>
 		</div>
-        -->
+
 	</div>
 
 	<div class="order_submit clearfix">
 
-        <a href="javascript:;" id="order_btn">提交订单</a>
+        <a href="commit_order2/?cartid={{ cartid }}&userid={{ userid }}" id="order_btn">提交订单</a>
 
 	</div>	
 
@@ -113,9 +90,6 @@
 	<script type="text/javascript">
 
 		$('#order_btn').click(function() {
-		    $.get('commit_order2/',function () {
-                return
-            });
 
 			localStorage.setItem('order_finish',2);
 
