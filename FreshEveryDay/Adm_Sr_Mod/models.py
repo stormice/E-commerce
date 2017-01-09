@@ -96,5 +96,5 @@ class Gcomment(models.Model):
     class Meta():
         db_table = 'Gcomment'
     def __str__(self):
-        return self.user;
+        return self.gcomment;
     gcomment=HTMLField()

@@ -10,7 +10,7 @@ class UserInfoAdmin(admin.ModelAdmin):
 class UserAddressAdmin(admin.ModelAdmin):
     list_display = ["user", 'userName', 'uaddress', "uphone","ucode","ustaue"]
     list_per_page = 10
-    search_fields=["user","username","uphone"]
+    search_fields=["user__uname","username","uphone"]
 @admin.register(TypeInfo)
 class TypeInfoAdmin(admin.ModelAdmin):
     list_display = ["title","isDelete"]
@@ -21,23 +21,23 @@ class GoodsInfoAdmin(admin.ModelAdmin):
     list_display = ["gtitle","gtype","gprice","gdesc","gdetail","gpic","gunit","isDelete"]
     list_filter = ["gtype"]
     list_per_page = 10
-    search_fields=["gtitle","gtype"]
+    search_fields=["gtitle","gtype__title"]
 
 
 @admin.register(CartInfo)
 class CartInfoAdmin(admin.ModelAdmin):
     list_display = ["user","goods","count"]
     list_per_page = 10
-    search_fields = ["user"]
+    search_fields = ["user__uname"]
 @admin.register(OrderInfo)
 class OrderInfoAdmin(admin.ModelAdmin):
     list_display = ["user","otime","ototal","state"]
     list_per_page = 10
-    search_fields = ["user","state","otime"]
+    search_fields = ["user__uname","state","otime"]
 @admin.register(OrderDetailInfo)
 class OrderDetailInfoAdmin(admin.ModelAdmin):
     list_per_page = 10
-    search_fields = ["order"]
+    search_fields = ["order__user"]
 @admin.register(AreaInfo)
 class AreaInfoAdmin(admin.ModelAdmin):
     list_per_page = 10
@@ -45,5 +45,5 @@ class AreaInfoAdmin(admin.ModelAdmin):
 @admin.register(Gcomment)
 class GcommentAdmin(admin.ModelAdmin):
     list_per_page = 10
-    search_fields = ["user","goods"]
+    search_fields = ["user__uname","goods__gtitle","gcomment"]
 
