@@ -126,7 +126,12 @@ $(function () {
             }
         });
         // 通过ajax传递数据
-        $.get('/cart_order/',{'idList': $idList})
+        if ($idList.length!=0){
+            $.get('/cart_order/',{'idList': $idList})
+        }
+        else{
+            alert('您还没选任何商品')
+        }
     })
 
 });
