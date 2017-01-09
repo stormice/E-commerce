@@ -1,0 +1,29 @@
+{% extends 'g_base_top_rightsearch.html' %}
+	{% block header %}
+		<link rel="stylesheet" type="text/css" href="/static/usermode/css/1.css">
+	{% endblock header %}
+    {% block right_search_page_center %}
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户安全中心</h3>
+			<ul>
+				<li><a href="user_center_info.html" class="active">· 忘记密码</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<div class="info_con clearfix">
+				<h3 class="common_title2">安全小卫士</h3>
+					<ul class="user_info_list">
+						<li class="user_info_list_li">
+							{% if err == 'pwd' %}
+							<span>密码错误</span>
+							{% else %}
+							<span style="width: 120px">用户名不存在</span>
+							{% endif %}
+						</li>
+						<li class="user_info_list_li"><a  class="edit_site1" href="/usermode/forgetpwd/">返回</a></li>
+					</ul>
+				</div>
+		</div>
+	</div>
+{% endblock right_search_page_center %}

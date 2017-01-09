@@ -1,0 +1,24 @@
+{% extends 'g_base_top_rightsearch.html' %}
+	{% block header %}
+		<link rel="stylesheet" type="text/css" href="/static/usermode/css/1.css">
+	{% endblock header %}
+    {% block right_search_page_center %}
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户安全中心</h3>
+			<ul>
+				<li><a href="/usermode/user_center_info/" class="active">· 忘记密码</a></li>
+		</div>
+		<div class="right_content clearfix">
+				<div class="info_con clearfix">
+				<h3 class="common_title2">安全小卫士</h3>
+					<ul class="user_info_list">
+						<li>
+							<span>{{user.uname}},您的密码设置成功</span>
+						</li>
+					</ul>
+				</div>
+		</div>
+	</div>
+{% endblock right_search_page_center %}
+

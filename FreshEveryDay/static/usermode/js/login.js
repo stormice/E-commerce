@@ -1,6 +1,8 @@
 $(function(){
-
-
+	var refer=document.referrer
+	// console.log(refer=='');
+	$('#refer').val(refer);
+	alert($('#refer').val());
 	var error_name = false;
 	var error_password = false;
 
@@ -16,11 +18,11 @@ $(function(){
 
 
 	function check_user_name(){
-		var value1 = $('#username').val();
-		var len=$('#username').val().length;
-		if(len<5||len>20)
+		var value1 = $('#username').val().trim();
+		var len=value1.length;
+		if(len<2||len>20)
 		{
-			$('#username').next().html('请输入5-20个字符的用户名')
+			$('#username').next().html('请输入2-20个字符的用户名')
 			$('#username').next().show();
 			error_name = true;
 		}
@@ -40,7 +42,7 @@ $(function(){
 	}
 
 	function check_pwd(){
-		var len = $('#pwd').val().length;
+		var len = $('#pwd').val().trim().length;
 		if(len<8||len>20)
 		{
 			$('#pwd').next().html('密码最少8位，最长20位')
@@ -84,37 +86,49 @@ $(function(){
 	//读取cookies
 	function getCookie(name)
 	{
-	 var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+		 var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
 
-	 if(arr=document.cookie.match(reg))
+		 if(arr=document.cookie.match(reg)){
+			 return (arr[2]);
+		 }
+		 else{
+			 return null;
+		 }
 
-	  return (arr[2]);
-	 else
-	  return null;
 	}
 
 	//删除cookies
 	function delCookie(name)
 	{
-	 var exp = new Date();
-	 exp.setTime(exp.getTime() - 1000);
-	 var cval=getCookie(name);
-	 if(cval!=null)
-	  document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		 var exp = new Date();
+		 exp.setTime(exp.getTime() - 1000);
+		 var cval=getCookie(name);
+		 if(cval!=null){
+			document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		 }
+
 	}
 
 
 	$('.more_input input').click(function(){
-		var ischecked=$(this).prop("checked")
-		if(ischecked=true){
-			var frename=$('#username').val()
-			setCookie('frename',frename,7)
-			alert(getCookie("frename"));
-		}else{
-			delCookie("frename")
-			alert(getCookie("frename"));
+		if(error_name == false){
+			var ischecked=$(this).prop("checked")
+			if(ischecked==true){
+				var frename=$('#username').val()
+				setCookie('frename',frename,7)
+				// alert(getCookie("frename"));
+			}else{
+				delCookie("frename")
+				// alert(getCookie("frename"));
+			}
 		}
+
 	})
+	var uname=getCookie("frename")
+	if(uname!=null){
+		$('#username').val(uname)
+	}
+
 
 
 

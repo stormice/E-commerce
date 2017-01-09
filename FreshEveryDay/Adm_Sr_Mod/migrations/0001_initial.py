@@ -11,6 +11,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='AreaInfo',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('atitle', models.CharField(max_length=20)),
+                ('aParent', models.ForeignKey(blank=True, to='Adm_Sr_Mod.AreaInfo', null=True)),
+            ],
+            options={
+                'db_table': 'AreaInfo',
+            },
+        ),
+        migrations.CreateModel(
             name='CartInfo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -18,6 +29,16 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'CartInfo',
+            },
+        ),
+        migrations.CreateModel(
+            name='Gcomment',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('gcomment', models.CharField(max_length=2000)),
+            ],
+            options={
+                'db_table': 'Gcomment',
             },
         ),
         migrations.CreateModel(
@@ -42,7 +63,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('count', models.IntegerField()),
                 ('price', models.DecimalField(max_digits=8, decimal_places=2)),
-                ('goods', models.ForeignKey(to='GoodsShow.GoodsInfo')),
+                ('goods', models.ForeignKey(to='Adm_Sr_Mod.GoodsInfo')),
             ],
             options={
                 'db_table': 'OrderDetailInfo',
@@ -79,6 +100,7 @@ class Migration(migrations.Migration):
                 ('uaddress', models.CharField(max_length=100, null=True, blank=True)),
                 ('uphone', models.CharField(max_length=11)),
                 ('ucode', models.CharField(max_length=6)),
+                ('ustaue', models.BooleanField(default=False)),
             ],
             options={
                 'db_table': 'UserAddress',
@@ -100,31 +122,41 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='useraddress',
             name='user',
-            field=models.ForeignKey(to='GoodsShow.UserInfo'),
+            field=models.ForeignKey(to='Adm_Sr_Mod.UserInfo'),
         ),
         migrations.AddField(
             model_name='orderinfo',
             name='user',
-            field=models.ForeignKey(to='GoodsShow.UserInfo'),
+            field=models.ForeignKey(to='Adm_Sr_Mod.UserInfo'),
         ),
         migrations.AddField(
             model_name='orderdetailinfo',
             name='order',
-            field=models.ForeignKey(to='GoodsShow.OrderInfo'),
+            field=models.ForeignKey(to='Adm_Sr_Mod.OrderInfo'),
         ),
         migrations.AddField(
             model_name='goodsinfo',
             name='gtype',
-            field=models.ForeignKey(to='GoodsShow.TypeInfo'),
+            field=models.ForeignKey(to='Adm_Sr_Mod.TypeInfo'),
+        ),
+        migrations.AddField(
+            model_name='gcomment',
+            name='goods',
+            field=models.ForeignKey(to='Adm_Sr_Mod.GoodsInfo'),
+        ),
+        migrations.AddField(
+            model_name='gcomment',
+            name='user',
+            field=models.ForeignKey(to='Adm_Sr_Mod.UserInfo'),
         ),
         migrations.AddField(
             model_name='cartinfo',
             name='goods',
-            field=models.ForeignKey(to='GoodsShow.GoodsInfo'),
+            field=models.ForeignKey(to='Adm_Sr_Mod.GoodsInfo'),
         ),
         migrations.AddField(
             model_name='cartinfo',
             name='user',
-            field=models.ForeignKey(to='GoodsShow.UserInfo'),
+            field=models.ForeignKey(to='Adm_Sr_Mod.UserInfo'),
         ),
     ]

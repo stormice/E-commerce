@@ -1,0 +1,37 @@
+{% extends 'g_base_top_rightsearch.html' %}
+	{% block header %}
+		<link rel="stylesheet" type="text/css" href="/static/usermode/css/1.css">
+	{% endblock header %}
+    {% block right_search_page_center %}
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户安全中心</h3>
+			<ul>
+				<li><a href="user_center_info.html" class="active">· 忘记密码</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<div class="info_con clearfix">
+				<h3 class="common_title2">重设密码</h3>
+					<form action="/usermode/resetpwd_handle/" method="post" id="forget_form">
+						{% csrf_token %}
+						<ul class="user_info_list">
+							<li>
+								<span>用户名：</span>{{name}}
+								<input type="hidden" name="name" value="{{name}}">
+							</li>
+							<li>
+								<span>密码：</span>
+								<input type="password" name="pwd">
+							</li>
+							<li>
+								<input id="forget_botton" type="submit" value="提交">
+							</li>
+						</ul>
+					</form>
+				</div>
+		</div>
+	</div>
+{% endblock right_search_page_center %}
+

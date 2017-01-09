@@ -28,6 +28,7 @@ class GoodsInfo(models.Model):
     gdesc=models.CharField(max_length=200)
     gdetail=models.CharField(max_length=1000)
     gpic=models.CharField(max_length=200)
+    gunit = models.CharField(max_length=8)
     isDelete=models.BooleanField(default=False)
     class Meta:
         db_table='GoodsInfo'
@@ -51,3 +52,11 @@ class OrderDetailInfo(models.Model):
     price=models.DecimalField(max_digits=8,decimal_places=2)
     class Meta:
         db_table='OrderDetailInfo'
+class AreaInfo(models.Model):
+    atitle = models.CharField(max_length=20)
+    aParent = models.ForeignKey('self', null=True, blank=True)
+    class Meta():
+        db_table = 'AreaInfo'
+
+    def __str__(self):
+        return self.atitle.encode("utf-8");

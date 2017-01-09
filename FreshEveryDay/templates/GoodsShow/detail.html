@@ -5,7 +5,7 @@
 	<title>天天生鲜-商品详情</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 	<div class="header_con">
@@ -85,7 +85,7 @@
 			<p>{{ goods.gdesc }}</p>
 			<div class="prize_bar">
 				<span class="show_pirze">¥<em>{{ goods.gprice }}</em></span>
-				<span class="show_unit">单  位：{{ goods. }}</span>
+				<span class="show_unit">单  位：{{ goods.gunit }}</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
@@ -123,16 +123,22 @@
 		<div class="r_wrap fr clearfix">
 			<ul class="detail_tab clearfix">
 				<li class="active">商品介绍</li>
-				<li>评论</li>
+				<li id="comment">评论</li>
 			</ul>
-
 			<div class="tab_content">
 				<dl>
 					<dt>商品详情：</dt>
 					<dd>{{ goods.gdetail }} </dd>
 				</dl>
 			</div>
-
+            <div id="commentInfo" class="tab_content" style="display: none">
+                <dl id="addcomment">
+                    <dt>用户评论:</dt>
+                </dl>
+            </div>
+            <div style="text-align: center">
+                <a href="#" id="FED"> <input type="button" value="查看更多>>" style="display: none;width: 940px;height: 30px;background-color: white;border: 0px" id="commor"></a>
+            </div>
 		</div>
 	</div>
 
@@ -151,7 +157,7 @@
 	</div>
 	<div class="add_jump"></div>
 
-	<script type="text/javascript" src="js/jquery-1.12.2.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 		var $add_x = $('#add_cart').offset().top;
 		var $add_y = $('#add_cart').offset().left;
@@ -172,6 +178,44 @@
 			});
 		})
 	</script>
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var hrefpath=window.location.href;
+            var re=new RegExp(/\/GoodsShow\/detail(\d+).html/);
+            var num=hrefpath.match(re)[1];
+            $("#FED").attr('href','/commentInfo'+num);
+            $("#comment").click(function(){
+                $("#addcomment").empty()
+                $("#addcomment").append("<dt>用户评论:</dt>")
+                $.get("/comment"+num,function(dic){
+                    var i=0;
+                    $.each(dic.Nr,function (index, item) {
 
+                        if(dic.Nr.length>3){
+                            $("#addcomment").append("<dd style='font-size: 23px;display: block; width: 100%;height: 100px;text-align:left;line-height: 100px'>"+item+"</dd>")
+                            i++;
+                            if(i>=3){
+                                $("#commor").show()
+                                return false;
+                            }
+                        }
+                        else{
+                            $("#addcomment").append("<dd style='font-size: 23px;display: block; width: 100%;height: 100px;text-align:left;line-height: 100px'>"+item+"</dd>")
+                         }
+                })
+
+
+                })
+                $(".tab_content").hide()
+                $("#commentInfo").show()
+            })
+            $(".active").click(function(){
+                $(".tab_content").show()
+                $("#commentInfo").hide()
+                $("#commor").hide()
+            })
+        })
+    </script>
 </body>
 </html>

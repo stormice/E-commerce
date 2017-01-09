@@ -1,0 +1,78 @@
+{% extends "g_base_top_centersearch.html" %}
+{% block var %}
+    "_self"
+{% endblock var %}
+ {% block content_without_lsc %}
+
+     	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>
+				<span></span>
+				<ul class="subnav">
+					<li><a href="/GoodsShow/list1/1" class="fruit">新鲜水果</a></li>
+					<li><a href="/GoodsShow/list2/1" class="seafood">海鲜水产</a></li>
+					<li><a href="/GoodsShow/list3/1" class="meet">猪牛羊肉</a></li>
+					<li><a href="/GoodsShow/list4/1" class="egg">禽类蛋品</a></li>
+					<li><a href="/GoodsShow/list5/1" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/GoodsShow/list6/1" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="/GoodsShow/">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="#">新鲜水果</a>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+					{%for goods in Rec %}
+					<li>
+						<a href="/GoodsShow/detail{{ goods.id }}.html"><img src={{ goods.gpic }}></a>
+						<h4><a href="/GoodsShow/detail{{ goods.id }}.html">{{ goods.gtitle }}</a></h4>
+						<div class="prize">￥{{ goods.gprice }}</div>
+					</li>
+                    {% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<div class="sort_bar">
+				<a href="#" class="active">默认</a>
+				<a href="#">价格</a>
+				<a href="#">人气</a>
+			</div>
+
+			<ul class="goods_type_list clearfix">
+                {% for goods in page.object_list %}
+				<li>
+					<a href="/GoodsShow/detail{{ goods.object.id }}.html"><img src={{ goods.object.gpic }}></a>
+					<h4><a href="/GoodsShow/detail{{ goods.object.id }}.html">{{ goods.object.gtitle }}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{ goods.object.gprice }}</span>
+						<span class="unit">{{ goods.object.gunit }}</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+{#                 {% empty %}#}
+{#                    <div style="text-align:center">#}
+{#                        <em style="font-size: 30px;"> "哎呀,客官别急~~,我们为您火速备货中……" </em>#}
+{#                    </div>#}
+                {% endfor %}
+
+			</ul>
+ {% endblock content_without_lsc %}

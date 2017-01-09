@@ -11,6 +11,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='AreaInfo',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('atitle', models.CharField(max_length=20)),
+                ('aParent', models.ForeignKey(blank=True, to='usermode.AreaInfo', null=True)),
+            ],
+            options={
+                'db_table': 'AreaInfo',
+            },
+        ),
+        migrations.CreateModel(
             name='CartInfo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -29,6 +40,7 @@ class Migration(migrations.Migration):
                 ('gdesc', models.CharField(max_length=200)),
                 ('gdetail', models.CharField(max_length=1000)),
                 ('gpic', models.CharField(max_length=200)),
+                ('gunit', models.CharField(max_length=8)),
                 ('isDelete', models.BooleanField(default=False)),
             ],
             options={

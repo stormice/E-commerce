@@ -34,7 +34,7 @@ insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) 
 insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("丹麦皇冠天然谷饲五花肉（带皮带骨）","28.90","好吃不贵","就是好吃不贵","/static/images/zhurou004.jpg","400g",False,"03");
 insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("丹麦皇冠天然谷饲猪肋排","38.00","好吃不贵","就是好吃不贵","/static/images/zhurou005.jpg","400g",False,"03");
 insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("丹麦皇冠天然谷饲猪肋排","19.10","好吃不贵","就是好吃不贵","/static/images/zhurou006.jpg","200g",False,"03");
-insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("丹麦皇冠天然谷饲猪软骨","19.90","好吃不贵","就是好吃不贵","/static/images/zhurou007.jpg","350g","80g",False,"03");
+insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("丹麦皇冠天然谷饲猪软骨","19.90","好吃不贵","就是好吃不贵","/static/images/zhurou007.jpg","350g",False,"03");
 insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("金锣原味猪排","11.80","好吃不贵","就是好吃不贵","/static/images/zhurou008.jpg","80g",False,"03");
 insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("大红门优质精选鲜鲜猪耳气调装","50.80","好吃不贵","就是好吃不贵","/static/images/zhurou009.jpg","333g",False,"03");
 insert into GoodsInfo(gtitle,gprice,gdesc,gdetail,gpic,gunit,isDelete,gtype_id) values("大红门优质精选鲜鲜小排气调装","34.80","好吃不贵","就是好吃不贵","/static/images/zhurou010.jpg","333g",False,"03");

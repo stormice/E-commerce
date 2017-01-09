@@ -4,10 +4,14 @@ from django.http import JsonResponse
 from models import *
 
 def cart(request):
-    # uname = request.user
-    user = CartInfo.objects.filter(user__pk=1)
-    context = {'user': user, 'pageName': '购物车'}
-    return render(request, 'shopping_cart/cart.html', context)
+    uname = request.session.get('uname')
+
+    if uname is None:
+        return redirect('/usermode/login/')
+    else:
+        user = CartInfo.objects.filter(user__uname=uname)
+        context = {'user': user, 'pageName': '购物车'}
+        return render(request, 'shopping_cart/cart.html', context)
 
 def delete(request):
     cartId = request.GET['delUser']

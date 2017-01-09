@@ -37,10 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "Adm_Sr_Mod",
+    'haystack',
     "FreshOrder",
     "GoodsShow",
     "usermode",
-    "shopping_cart"
+    "shopping_cart",
+    'tinymce'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,4 +127,16 @@ CACHES = {
         "LOCATION": "localhost:6379",
         'TIMEOUT': 60,
     },
+}
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
 }
