@@ -5,7 +5,102 @@
 	<title>天天生鲜-商品详情</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-    <script src="/static/js/jquery-1.12.4.min.js"></script>
+     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+     <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+{#刷新页面上购物车的数量            #}
+             $.get('/GoodsShow/getsession/', function (session)
+             {
+                if (session.uname != null)
+                {
+                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 1},
+                            function (data) { $('.goods_count').html(data.count); });
+                }
+            });
+
+
+            var  src=window.location.href;
+            var  goodsId=src.match(/\/GoodsShow\/detail(\d+).html$/)[1];
+
+
+{# 最初总价           #}
+             $('.total em').html(
+                     parseInt($('.num_show').val()) *
+                     parseFloat($('.show_pirze em').html()).toFixed(2));
+
+{# 点击'+'#}
+            $('.add').click(function(){
+
+{# 数量+1#}
+                $('.num_show').attr('value',function(){
+                return  parseInt($(this).val())+1});
+
+                 var num=$('.num_show').attr('value');
+
+{#总价变化#}
+                 $('.total em').html(
+                         (parseInt(num) * parseFloat($('.show_pirze em').html()).toFixed(2))
+                );
+
+ {# 立即购买 的链接改变 #}
+                $('.buy_btn ').html(" <a href='/FreshOrder/?id=" +goodsId+ "&num=" +num+ "'   class='buy_btn'>立即购买</a>");
+
+
+            });
+
+{# 点击'-'#}
+            $('.minus').click(function(){
+{# 数量+1#}
+                $('.num_show').attr('value',function(){
+                return  parseInt($(this).val())-1});
+
+                var num=$('.num_show').attr('value');
+
+{#总价变化#}
+                 $('.total em').html(
+                         (parseInt(num) * parseFloat($('.show_pirze em').html()).toFixed(2))
+                );
+{# 立即购买 的链接改变 #}
+                 $('.buy_btn ').html(" <a href='/FreshOrder/?id=" +goodsId+ "&num=" +num+ "'   class='buy_btn'>立即购买</a>");
+
+
+            });
+
+
+{#点击添加购物车 #}
+$('#add_cart').click(function(){
+        $.get('/GoodsShow/getsession/', function (session) {
+             if (session.uname !=null)
+             {
+                 $.get('/GoodsShow/send/', {uname: session.uname, goodsId: goodsId, num: num},
+                  function(data){ $('.goods_count').html(data.count); });
+
+             }
+             else
+            {
+                window.location.href = '/usermode/login/';
+            }
+          });
+    });
+
+{#点击立即购买 #}
+$('.buy_btn').click(function(){
+        $.get('/GoodsShow/getsession/', function (session) {
+             if (session.uname ==null)
+             {
+                window.location.href = '/usermode/login/';
+             }
+
+          });
+    });
+
+
+
+ });
+ </script>
+
 </head>
 <body>
 	<div class="header_con">
@@ -71,7 +166,7 @@
 	<div class="breadcrumb">
 		<a href="/GoodsShow/">全部分类</a>
 		<span>></span>
-{#		<a href="/GoodsShow/list{{typeId}}/1">{{typeTitle }}</a>#}
+
         <a href="/GoodsShow/list{{goods.gtype_id }}/1">{{goods.gtype.title }}</a>
 		<span>></span>
 		<a href="#">商品详情</a>
@@ -85,7 +180,7 @@
 			<p>{{ goods.gdesc }}</p>
 			<div class="prize_bar">
 				<span class="show_pirze">¥<em>{{ goods.gprice }}</em></span>
-				<span class="show_unit">单  位：{{ goods.gunit }}</span>
+				<span class="show_unit">单  位：{{ goods.gunit }}元</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
@@ -98,7 +193,7 @@
 			<div class="total">总价：<em>16.80元</em></div>
 			<div class="operate_btn">
 				<a href="/FreshOrder/?id={{ goods.id }}&num=" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>
+				<a  class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
 	</div>
@@ -123,8 +218,9 @@
 		<div class="r_wrap fr clearfix">
 			<ul class="detail_tab clearfix">
 				<li class="active">商品介绍</li>
-				<li id="comment">评论</li>
+				<li>评论</li>
 			</ul>
+
 			<div class="tab_content">
 				<dl>
 					<dt>商品详情：</dt>
@@ -134,6 +230,7 @@
             <div id="commentInfo" class="tab_content" style="display: none">
                 <dl id="addcomment">
                     <dt>用户评论:</dt>
+                    <dd id="wu">当前无任何评论!</dd>
                 </dl>
             </div>
             <div style="text-align: center">
@@ -191,7 +288,7 @@
                 $.get("/comment"+num,function(dic){
                     var i=0;
                     $.each(dic.Nr,function (index, item) {
-
+                        $("#wu").hide()
                         if(dic.Nr.length>3){
                             $("#addcomment").append("<dd style='font-size: 23px;display: block; width: 100%;height: 100px;text-align:left;line-height: 100px'>"+item+"</dd>")
                             i++;

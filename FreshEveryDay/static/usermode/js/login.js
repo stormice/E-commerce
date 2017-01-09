@@ -2,7 +2,6 @@ $(function(){
 	var refer=document.referrer
 	// console.log(refer=='');
 	$('#refer').val(refer);
-	alert($('#refer').val());
 	var error_name = false;
 	var error_password = false;
 
