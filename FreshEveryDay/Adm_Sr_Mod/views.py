@@ -18,11 +18,13 @@ def comment(request,idnum):
     print(comlist)
     context={"Nr":comlist}
     return JsonResponse(context)
-def commentInfo(request,idnum):
+def commentInfo(request,idnum,pagenum):
+    if pagenum=="":
+        pagenum=1
     nr=Gcomment.objects.filter(goods=idnum)
     p=Paginator(nr,10)
     plist=p.page_range
-    pagenr=p.page(1)
-    context={"plist":plist,"pagenr":pagenr}
+    pagenr=p.page(int(pagenum)-1+1)
+    context={"plist":plist,"pagenr":pagenr,"idnum":idnum}
     return render(request,"Adm_Sr_Mod/comment.html",context)
 

@@ -7,5 +7,6 @@ urlpatterns = [
     url(r"^getsession$",views.getsession),
     url(r"^$",include("GoodsShow.urls")),
     url(r"^comment(\d+)$",views.comment),
-    url(r"^commentInfo(\d+)$",views.commentInfo)
+    url(r"^commentInfo(\d+)(\d+)$",views.commentInfo),
+    url(r"^commentInfo(\d+)(\d*)$",views.commentInfo),
 ]
