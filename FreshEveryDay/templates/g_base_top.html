@@ -16,10 +16,12 @@
                       loginfo.show();
                       logbtn.hide();
                       loginfo.children('em').html(session.uname);
-//                      logbtn.attr('style', 'display:none');
-//                      loginfo.attr('style', 'display:inline-block');
-//                      loginfo.html('欢迎您：<em>'+session.uname+'</em>');
                   }
+                  else
+				  {
+                      $('.user_link a').attr('href', '/usermode/login/')
+				  }
+
               });
           });
 
@@ -30,8 +32,8 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
-				<div class="login_info user_link fl">
-					欢迎您：<em>张 山</em>
+				<div class="login_info fl">
+					欢迎您：<em></em>
 					<span>|</span>
 					<a href="/usermode/login/">切换账号</a>
 					<span>|</span>
