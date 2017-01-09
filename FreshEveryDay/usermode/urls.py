@@ -11,8 +11,10 @@ urlpatterns = [
     url(r'^changeDefaultAddr/$', views.changeDefaultAddr),
     url(r'^login/$', views.login),
     url(r'^login_check/$', views.login_check),
+    url(r'^exchangelogin/$', views.exchangelogin),
     url(r'^exit/$', views.exit),
     url(r'^forgetpwd/$', views.forgetpwd),
     url(r'^forgetpwd_handle/$', views.forgetpwd_handle),
     url(r'^resetpwd_handle/$', views.resetpwd_handle),
+    url(r'^getshi/(\d+)/$', views.getshi),
 ]
