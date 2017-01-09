@@ -5,6 +5,45 @@
 	<title>天天生鲜-商品列表</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+     <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            $.get('/GoodsShow/getsession/', function (session) {
+                if (session.uname != null) {
+                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 1},function (data) {
+                        $('.goods_count').html(data.count);
+                    });
+                }
+            });
+
+            $('.add_goods').click(function () {
+                var src = $(this).parent().siblings('a').attr('href');
+                var goodsId=src.match(/\/GoodsShow\/detail(\d+).html$/)[1];
+
+
+                $.get('/GoodsShow/getsession/', function (session) {
+                    if (session.uname !=null)
+                    {
+                         $.get('/GoodsShow/send/', {uname: session.uname, goodsId: goodsId, num: 0},
+                                 function(data){
+                             $('.goods_count').html(data.count);
+                         });
+                    }
+                    else
+                    {
+                        window.location.href = '/usermode/login/';
+
+                    }
+
+                      });
+            });
+
+
+
+        })
+    </script>
 </head>
 <body>
 	<div class="header_con">
@@ -38,7 +77,7 @@
 			<input type="button" class="input_btn fr" name="" value="搜索">
 		</div>
 		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
+			<a href="/shopping_cart/" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl">1</div>
 		</div>
 	</div>
@@ -105,7 +144,7 @@
 					<div class="operate">
 						<span class="prize">￥{{ goods.gprice }}</span>
 						<span class="unit">500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
+						<a  class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
                 {% endfor %}
@@ -125,11 +164,6 @@
 				<a href="#">下一页></a>
 
 
-{#				<a href="#" class="active">1</a>#}
-{#				<a href="#">2</a>#}
-{#				<a href="#">3</a>#}
-{#				<a href="#">4</a>#}
-{#				<a href="#">5</a>#}
 
 			</div>
 		</div>
