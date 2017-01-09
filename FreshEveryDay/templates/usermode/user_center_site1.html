@@ -1,104 +1,36 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-用户中心</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-	<link rel="stylesheet" type="text/css" href="/static/usermode/css/1.css">
-</head>
-<body>
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
-			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>{{uname}}</em>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="/GoodsShow/">首页</a>
-					<span>|</span>
-					<a href="cart.html">我的购物车</a>
-					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
-					<span>|</span>
-					<a href="/usermode/login/">切换账号</a>
-					<span>|</span>
-					<a href="/usermode/exit/">退出</a>
-				</div>
-			</div>
-		</div>		
-	</div>
+{% extends 'g_base_top_rightsearch.html' %}
+	{% block header %}
+		<link rel="stylesheet" type="text/css" href="/static/usermode/css/1.css">
+		<script>
+		$(function (){
+			$('#pro').change(function(){
+				$('#city').empty().append('<option value="0">请选择市</option>')
+				$('#dis').empty().append('<option value="0">请选择县</option>')
+				var val=$(this).val();
+				if(val==0){
+					return;
+				}
+				$.get('/usermode/getshi/'+val+'/',function(data){
+					$city=$('#city')
+					$.each(data.list,function(index,item){
+					$city.append('<option value="'+item[0]+'">'+item[1]+'</option>')
+				})
+				})
+			})
+			$('#city').change(function(){
+				$('#dis').empty().append('<option value="0">请选择县</option>');
+				var val=$(this).val();
+				if(val==0){
+					return;
+				}
+				$.get('/usermode/getshi/'+val+'/',function(data){
+					$dis=$('#dis')
+					$.each(data.list,function(index,item){
+						$dis.append('<option value="'+item[0]+'">'+item[1]+'</option>');
+					})
+				})
+			});
 
-	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
-		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
-		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>		
-	</div>
-
-	<div class="main_con clearfix">
-		<div class="left_menu_con clearfix">
-			<h3>用户中心</h3>
-			<ul>
-				<li><a href="/usermode/user_center_info/">· 个人信息</a></li>
-				<li><a href="user_center_order.html">· 全部订单</a></li>
-				<li><a href="/usermode/user_center_site/" class="active">· 收货地址</a></li>
-			</ul>
-		</div>
-		<div class="right_content clearfix">
-			<h3 class="common_title2">编辑地址</h3>
-				<div class="site_con">
-					<form method="post" action="/usermode/addr_save/" id="site_con_form1">
-						{% csrf_token %}
-						<div class="form_group">
-							<label>收件人：</label>
-							<input type="text" id="username" name="username">
-							<div class="err_info">输入错误</div>
-						</div>
-						<div class="form_group form_group2">
-							<label>详细地址：</label>
-							<textarea class="site_area" id="useraddress" name="useraddress"></textarea>
-							<div  class="err_info">输入错误</div>
-						</div>
-						<div class="form_group">
-							<label>邮编：</label>
-							<input type="text" id="ucode" name="ucode">
-							<div  class="err_info">输入错误</div>
-						</div>
-						<div class="form_group">
-							<label>手机：</label>
-							<input type="tel" id="uphone" name="uphone">
-							<div class="err_info">输入错误</div>
-						</div>
-
-						<input type="submit" name="" value="提交" class="info_submit">
-					</form>
-				</div>
-		</div>
-	</div>
-
-
-
-	<div class="footer">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>		
-		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
-	</div>
-	<script src="/static/js/jquery-1.12.4.min.js"></script>
-	<script>
-		$(function(){
 			var error_name = false;
 			var error_address = false;
 			var error_tel = false;
@@ -126,13 +58,13 @@
 			function check_username(){
 				var value1 = $('#username').val().trim();
 				var len=value1.length;
-				if(len<5||len>20)
+				if(len<2||len>20)
 				{
-					$('#user_name').next().html('*请输入5-20个字符的收件人姓名')
-					$('#user_name').next().css('display','inline-block');
+					$('#username').next().html('*请输入2-20个字符的收件人姓名')
+					$('#username').next().css('display','inline-block');
 					error_name = true;
 				}else{
-					$('#user_name').next().hide();
+					$('#username').next().hide();
 					error_name = false;
 				}
 			}
@@ -141,9 +73,13 @@
 			function check_useraddress(){
 				var value1 = $('#useraddress').val().trim();
 				var len=value1.length;
-				if(len<10||len>100)
+				if($('#dis').val()=='0'){
+					$('#useraddress').next().html('*请选择省、市、区')
+					$('#useraddress').next().css('display','inline-block');
+					error_address = true;
+				}else if(len<5||len>100)
 				{
-					$('#useraddress').next().html('*请输入10-100个字符的收件人地址')
+					$('#useraddress').next().html('*请输入5-100个字符的详细收件地址')
 					$('#useraddress').next().css('display','inline-block');
 					error_address = true;
 				}else{
@@ -189,15 +125,15 @@
 
 
 			$('#site_con_form1').submit(function(){
-				check_user_name();
-				check_pwd();
-				check_cpwd();
-				check_email();
+				check_username();
+				check_useraddress();
+				check_ucode();
+				check_uphone();
 
 				if(error_name == false && error_address == false &&
 error_tel == false && error_code == false)
 				{
-					alert('注册成功!')
+					alert('添加成功!')
 					return true;
 				}
 				else
@@ -209,5 +145,60 @@ error_tel == false && error_code == false)
 
 		})
 	</script>
-</body>
-</html>
+	{% endblock header %}
+    {% block right_search_page_center %}
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="/usermode/user_center_info/">· 个人信息</a></li>
+				<li><a href="user_center_order.html">· 全部订单</a></li>
+				<li><a href="/usermode/user_center_site/" class="active">· 收货地址</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+			<h3 class="common_title2">编辑地址</h3>
+				<div class="site_con">
+					<form method="post" action="/usermode/addr_save/" id="site_con_form1">
+						{% csrf_token %}
+						<div class="form_group">
+							<label>收件人：</label>
+							<input type="text" id="username" name="username">
+							<div class="err_info">输入错误</div>
+						</div>
+						<div class="form_group form_group2" style="height: 150px">
+							<label>详细地址：</label>
+							<select value="0" id="pro" name="pro">
+								<option value="0">请选择省</option>
+								{% for x in shenlist %}
+								<option value="{{x.id}}">{{x.atitle}}</option>
+								{% endfor %}
+							</select>
+							<select value="0" id="city" name="city">
+								<option value="0">请选择市</option>
+							</select>
+							<select value="0" id="dis" name="dis">
+								<option value="0">请选择区</option>
+							</select>
+							<br>
+							<textarea style="margin-left: 100px" class="site_area" id="useraddress" name="useraddress"></textarea>
+							<div  class="err_info">输入错误</div>
+						</div>
+						<div class="form_group">
+							<label>邮编：</label>
+							<input type="text" id="ucode" name="ucode">
+							<div  class="err_info">输入错误</div>
+						</div>
+						<div class="form_group">
+							<label>手机：</label>
+							<input type="tel" id="uphone" name="uphone">
+							<div class="err_info">输入错误</div>
+						</div>
+
+						<input type="submit" name="" value="提交" class="info_submit">
+					</form>
+				</div>
+		</div>
+	</div>
+{% endblock right_search_page_center %}
