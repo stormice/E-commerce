@@ -68,12 +68,47 @@ def detail(request, goodsId):
 
     # typeTitle = goods.gtype.title
 
-    context={'goods':goods, 'Rec':listRec_R}
+    context={'goods':goods, 'Rec':listRec_R, 'goodsId': goodsId}
     return render(request,  'GoodsShow/detail.html', context)
 
-def getsession(request):
-    # request.session['uname'] = '大美人'
-    request.session.flush()
-    uname = request.session.get('uname')
+def send(request):
+    userName = request.GET['uname']
+    goodsId = request.GET['goodsId']
+    Count =int(request.GET['num'])
 
-    return JsonResponse({'uname': uname})
+    userInfo = UserInfo.objects.get(uname=userName)
+    cartList = CartInfo.objects.filter(user_id=userInfo.id, goods_id=goodsId)
+    # print(0)
+    if  len(cartList)!=0:
+        # print('11')
+        cart_0 = CartInfo.objects.get(user_id=userInfo.id, goods_id=goodsId)
+        cart_0.count +=Count
+        cart_0.save()
+        # context={'count': cart_0.count}
+        # print(cart_0.count)
+
+    else:
+        # print('22')
+        cart = CartInfo()
+        cart.user_id = userInfo.id
+        cart.goods_id =goodsId
+        cart.count=Count
+        cart.save()
+        # print(cart.count)
+        # context={'count': cart.count}
+    cartSum = CartInfo.objects.filter(user_id=userInfo.id)
+    count =0
+    for cart in cartSum:
+        count += cart.count
+
+    return JsonResponse({'count':count})
+
+
+
+def getsession(request):
+    request.session['uname'] = 'dada'
+    # request.session.flush()
+    uname = request.session.get('uname')
+    goodsId = GoodsInfo.objects.all()[0].id
+    return JsonResponse({'uname': uname, 'goodsId':goodsId})
+
