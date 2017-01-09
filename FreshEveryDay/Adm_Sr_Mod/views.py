@@ -15,7 +15,6 @@ def comment(request,idnum):
     nr=Gcomment.objects.filter(goods=idnum)
     for temp in nr:
         comlist.append(temp.gcomment)
-    print(comlist)
     context={"Nr":comlist}
     return JsonResponse(context)
 def commentInfo(request,idnum,pagenum):

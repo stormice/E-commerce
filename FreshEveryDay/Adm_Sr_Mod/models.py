@@ -62,7 +62,7 @@ class CartInfo(models.Model):
 
 
 class OrderInfo(models.Model):
-    otime=models.DateTimeField()
+    otime=models.DateTimeField(auto_now_add=True)
     user=models.ForeignKey(UserInfo)
     ototal=models.DecimalField(max_digits=8, decimal_places=2)
     state=models.BooleanField(default=False)
