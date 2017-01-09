@@ -1,6 +1,6 @@
-.login_info{
-    display: block;
-}
+/*.login_info{*/
+    /*display: block;*/
+/*}*/
 .common_title2 a{
     color:#666;
 }
@@ -20,4 +20,17 @@
     height: 40px;
     line-height: 40px;
     vertical-align: top;
+}
+.user_info_list_li{
+    height:50px;
+}
+.edit_site1{
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    text-indent: 0px;
+    background-color: #37ab40;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
 }

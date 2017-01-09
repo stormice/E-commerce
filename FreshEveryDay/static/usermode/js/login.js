@@ -1,6 +1,8 @@
 $(function(){
-
-
+	var refer=document.referrer
+	// console.log(refer=='');
+	$('#refer').val(refer);
+	alert($('#refer').val());
 	var error_name = false;
 	var error_password = false;
 
@@ -18,9 +20,9 @@ $(function(){
 	function check_user_name(){
 		var value1 = $('#username').val().trim();
 		var len=value1.length;
-		if(len<5||len>20)
+		if(len<2||len>20)
 		{
-			$('#username').next().html('请输入5-20个字符的用户名')
+			$('#username').next().html('请输入2-20个字符的用户名')
 			$('#username').next().show();
 			error_name = true;
 		}

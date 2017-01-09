@@ -41,9 +41,9 @@ $(function(){
 	function check_user_name(){
 		var value1 = $('#user_name').val().trim();
 		var len=value1.length;
-		if(len<5||len>20)
+		if(len<2||len>20)
 		{
-			$('#user_name').next().html('请输入5-20个字符的用户名')
+			$('#user_name').next().html('请输入2-20个字符的用户名')
 			$('#user_name').next().show();
 			error_name = true;
 		}
