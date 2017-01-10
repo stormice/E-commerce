@@ -3,7 +3,7 @@
 <title>天天生鲜-商品详情</title>
 <script type="text/javascript">
         $(function(){
-{#刷新页面上购物车的数量            #}
+{# 刷新页面上购物车的数量 #}
              $.get('/GoodsShow/getsession/', function (session)
              {
                 if (session.uname != null)
@@ -67,7 +67,8 @@ $('#add_cart').click(function(){
         $.get('/GoodsShow/getsession/', function (session) {
              if (session.uname !=null)
              {
-                 $.get('/GoodsShow/send/', {uname: session.uname, goodsId: goodsId, num: num},
+                 var num = $('.num_show').val();
+                 $.get('/GoodsShow/send/', {'uname': session.uname, 'goodsId': goodsId, 'num': num},
                   function(data){ $('.goods_count').html(data.count); });
 
              }

@@ -26,3 +26,4 @@ def change(request):
     cartinfo.count = count
     cartinfo.save()
     return JsonResponse({})
+
