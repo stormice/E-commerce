@@ -1,21 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-商品详情</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
-     <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
-
-    <script type="text/javascript">
+{% extends 'g_base_top_centersearch.html' %}
+{% block header %}
+<title>天天生鲜-商品详情</title>
+<script type="text/javascript">
         $(function(){
-{# 刷新页面上购物车的数量 #}
+{#刷新页面上购物车的数量            #}
              $.get('/GoodsShow/getsession/', function (session)
              {
                 if (session.uname != null)
                 {
-                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 0},
+                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 1},
                             function (data) { $('.goods_count').html(data.count); });
                 }
             });
@@ -38,7 +31,6 @@
                 return  parseInt($(this).val())+1});
 
                  var num=$('.num_show').attr('value');
-                alert(num);
 
 {#总价变化#}
                  $('.total em').html(
@@ -75,8 +67,7 @@ $('#add_cart').click(function(){
         $.get('/GoodsShow/getsession/', function (session) {
              if (session.uname !=null)
              {
-                 var num = $('.num_show').val();
-                 $.get('/GoodsShow/send/', {'uname': session.uname, 'goodsId': goodsId, 'num': num},
+                 $.get('/GoodsShow/send/', {uname: session.uname, goodsId: goodsId, num: num},
                   function(data){ $('.goods_count').html(data.count); });
 
              }
@@ -103,44 +94,8 @@ $('.buy_btn').click(function(){
  });
  </script>
 
-</head>
-<body>
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
-			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
-				<div class="login_btn fl">
-					<a href="login.html">登录</a>
-					<span>|</span>
-					<a href="register.html">注册</a>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
-					<span>|</span>
-					<a href="cart.html">我的购物车</a>
-					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
-		<div class="search_con fl">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>
-		<div class="guest_cart fr">
-			<a href="cart.html" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
-		</div>
-	</div>
-
+{% endblock header %}
+{% block content_without_lsc %}
 	<div class="navbar_con">
 		<div class="navbar clearfix">
 			<div class="subnav_con fl">
@@ -182,7 +137,7 @@ $('.buy_btn').click(function(){
 			<p>{{ goods.gdesc }}</p>
 			<div class="prize_bar">
 				<span class="show_pirze">¥<em>{{ goods.gprice }}</em></span>
-				<span class="show_unit">单  位：{{ goods.gunit }}</span>
+				<span class="show_unit">单  位：{{ goods.gunit }}元</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
@@ -194,7 +149,7 @@ $('.buy_btn').click(function(){
 			</div>
 			<div class="total">总价：<em>16.80元</em></div>
 			<div class="operate_btn">
-				<a  href='/FreshOrder/?id={{ goods.id }}&num=1'class="buy_btn">立即购买</a>
+				<a href="/FreshOrder/?id={{ goods.id }}&num=" class="buy_btn">立即购买</a>
 				<a  class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
@@ -220,7 +175,7 @@ $('.buy_btn').click(function(){
 		<div class="r_wrap fr clearfix">
 			<ul class="detail_tab clearfix">
 				<li class="active">商品介绍</li>
-				<li id="comment">评论</li>
+				<li>评论</li>
 			</ul>
 
 			<div class="tab_content">
@@ -240,23 +195,11 @@ $('.buy_btn').click(function(){
             </div>
 		</div>
 	</div>
+ {% endblock content_without_lsc %}
+{% block zzj %}
 
-	<div class="footer">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>
-		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
-	</div>
 	<div class="add_jump"></div>
 
-	<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 		var $add_x = $('#add_cart').offset().top;
 		var $add_y = $('#add_cart').offset().left;
@@ -316,5 +259,4 @@ $('.buy_btn').click(function(){
             })
         })
     </script>
-</body>
-</html>
+{% endblock zzj %}
