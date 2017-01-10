@@ -8,12 +8,15 @@ from django.http import JsonResponse,HttpResponse
 
 #商品详情页面点击"立即购买"即跳转到"提交订单"页面并保存订单信息
 def one_order(request):
-    #gid=request.GET['']
-    gid=5
-    #gcount=request.GET['']
-    gcount=3
-    #userid=request.session['uname']
-    userid = 3
+    gid=request.GET['id']
+    gid=int(gid)
+    print(type(gid))
+    gcount=request.GET['num']
+    gcount=int(gcount)
+    print(type(gcount))
+    username=request.session['uname']
+    userid=UserInfo.objects.get(uname=username)
+    userid=userid.id
     useradd=UserAddress.objects.filter(user_id=userid,ustaue=1)
     userlist=[]
     for u in useradd:
@@ -58,9 +61,10 @@ def user_order(request,pindex):
     if pindex=='':
         pindex=1
 
-    # userid=request.session['uname']
-    userid=3
-    orderinfo=OrderInfo.objects.filter(user_id=userid)
+    username=request.session['uname']
+    userid=UserInfo.objects.get(uname=username)
+    userid=userid.id
+    orderinfo=OrderInfo.objects.filter(user=userid)
     paginator = Paginator(orderinfo, 2)
     page = paginator.page(int(pindex))
     listdetail = []
@@ -76,15 +80,15 @@ def user_order(request,pindex):
 
 #购物车页面点击“结算”按钮跳转至“提交订单”页面并保存订单信息
 def cart_order(request):
-    # userid=request.session['uname']
-    userid=3
+    username=request.session['uname']
+    userid=UserInfo.objects.get(uname=username)
+    userid=userid.id
     useradd=UserAddress.objects.filter(user_id=userid,ustaue=1)
     userlist=[]
     for u in useradd:
         userlist.append({'uadd':u.uaddress,'uname':u.userName,'uphone':u.uphone})
-    #cartid=request.GET.getlist('cartid')
-    #cartid=json.loads(cartid[0])
-    cartid=[5,6,7]
+    cartid=request.GET.getlist('cartid')
+    cartid=json.loads(cartid[0])
     cartlist=CartInfo.objects.filter(pk__in=cartid)
     total=0
     totalcount=0
