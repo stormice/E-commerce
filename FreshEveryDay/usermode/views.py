@@ -53,29 +53,21 @@ def user_center_site(request):
             userAddr=a[0].useraddress_set
             defaultAddr=userAddr.filter(ustaue=True)
             addrList = userAddr.all()
-            # print(defaultAddr)
+            shenlist = AreaInfo.objects.filter(aParent_id__isnull=True)
             if addrList.count()!=0:
-                # print(defaultAddr.count())
                 if defaultAddr.count() == 0:
                     defaultAddress = 'no'
                 else:
                     defaultAddress = defaultAddr[0]
 
-                context={'statu':'login','user':a[0],'useraddress':addrList,'defaultAddress':defaultAddress,'pageName':'用户中心'}
+                context={'statu':'login','user':a[0],'useraddress':addrList,'defaultAddress':defaultAddress,'pageName':'用户中心','has_addrList':'yes','shenlist':shenlist}
                 return render(request, 'usermode/user_center_site.html', context)
             else:
-                return redirect('/usermode/user_center_site1/')
+                context={'has_addrList':'no','pageName':'用户中心','shenlist':shenlist}
+                return render(request, 'usermode/user_center_site.html',context)
         else:
             del request.session['uname']
             return redirect('/GoodsShow/')
-    else:
-        return redirect('/GoodsShow/')
-def user_center_site1(request):
-    name = request.session.get('uname', None)
-    if name != None:
-        shenlist=AreaInfo.objects.filter(aParent_id__isnull=True)
-        context={'uname':name,'shenlist':shenlist,'pageName':'用户中心'}
-        return render(request, 'usermode/user_center_site1.html', context)
     else:
         return redirect('/GoodsShow/')
 def getshi(request,pid):
@@ -89,33 +81,48 @@ def addr_save(request):
     if name !=None:
         a = UserInfo.objects.filter(isDelete=False, uname=name)
         if a.exists() == True:
-            uname = request.POST['username']
-            shenid=request.POST['pro']
-            shiid = request.POST['city']
-            xianid = request.POST['dis']
-            uaddr = request.POST['useraddress']
-            ucode = request.POST['ucode']
-            uphone= request.POST['uphone']
+            uname = request.GET['username']
+            proid=request.GET['pro']
+            cityid = request.GET['city']
+            disid= request.GET['dis']
+            uaddr = request.GET['useraddress']
+            ucode = request.GET['ucode']
+            uphone= request.GET['uphone']
             user_id = a[0].id
 
-            shen=AreaInfo.objects.get(pk=int(shenid)).atitle
-            shi = AreaInfo.objects.get(pk=int(shiid)).atitle
-            xian = AreaInfo.objects.get(pk=int(xianid)).atitle
+            pro=AreaInfo.objects.get(pk=int(proid)).atitle
+            city= AreaInfo.objects.get(pk=int(cityid)).atitle
+            dis= AreaInfo.objects.get(pk=int(disid)).atitle
 
             useraddr=UserAddress()
             useraddr.userName=uname
-            useraddr.uaddress=shen+shi+xian+uaddr
+            useraddr.uaddress=pro+city+dis+uaddr
             useraddr.uphone=uphone
             useraddr.ucode=ucode
             useraddr.user_id=user_id
             useraddr.ustaue= False
             useraddr.save()
-            return redirect('/usermode/user_center_site/')
+            return JsonResponse({'success':'ok'})
         else:
             del request.session['uname']
-            return redirect('/GoodsShow/')
+            return JsonResponse({'success':'no'})
     else:
-        return redirect('/GoodsShow/')
+        return JsonResponse({'success':'no'})
+def getuseraddr(request):
+    name = request.session.get('uname', None)
+    if name != None:
+        a = UserInfo.objects.filter(isDelete=False, uname=name)
+        if a.exists() == True:
+            userAddr = a[0].useraddress_set.all()
+            userAddr1=[]
+            for x in userAddr:
+                userAddr1.append([x.id,x.uaddress,x.userName,x.uphone])
+            return JsonResponse({'addrList':userAddr1,'success':'ok'})
+        else:
+            del request.session['uname']
+            return JsonResponse({'success':'no'})
+    else:
+        return JsonResponse({'success':'no'})
 def changeDefaultAddr(request):
     id1=request.GET['id1']
     name = request.session.get('uname', None)
