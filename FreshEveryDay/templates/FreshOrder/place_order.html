@@ -42,9 +42,8 @@
 			<li class="col04">数量</li>
 			<li class="col05">小计</li>		
 		</ul>
-
+        {% for list in goodslist %}
         <ul class="goods_list_td clearfix">
-            {% for list in goodslist %}
 			<li class="col01">1</li>
 			<li class="col02"><img src="{{ list.gpic }}"></li>
 			<li class="col03">{{ list.gtitle }}</li>
@@ -52,8 +51,8 @@
 			<li class="col05">{{ list.gprice }}元</li>
 			<li class="col06">{{ list.gcount }}</li>
 			<li class="col07">{{ list.totalprice }}元</li>
-            {% endfor %}
 		</ul>
+        {% endfor %}
 
 
 	</div>

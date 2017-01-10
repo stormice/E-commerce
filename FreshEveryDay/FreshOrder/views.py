@@ -67,19 +67,13 @@ def user_order(request,pindex):
     orderinfo=OrderInfo.objects.filter(user=userid)
     paginator = Paginator(orderinfo, 2)
     page = paginator.page(int(pindex))
-    listdetail = []
-
-    for lin in orderinfo:
-        oid = lin.id
-        orderdetail = OrderDetailInfo.objects.filter(order_id=oid)
-        for lid in orderdetail:
-            listdetail.append({'orderId':lid.order_id,'gpic':lid.goods.gpic, 'gtitle':lid.goods.gtitle, 'gcount':lid.count, 'gprice':lid.price})
-    context = {'pageName':'用户中心','page': page,'orderlist':listdetail}
+    context = {'pageName':'用户中心','page': page}
     return render(request,'FreshOrder/user_center_order.html',context)
 
 
 #购物车页面点击“结算”按钮跳转至“提交订单”页面并保存订单信息
 def cart_order(request):
+    print('++++______++++++_____')
     username=request.session['uname']
     userid=UserInfo.objects.get(uname=username)
     userid=userid.id
@@ -87,8 +81,14 @@ def cart_order(request):
     userlist=[]
     for u in useradd:
         userlist.append({'uadd':u.uaddress,'uname':u.userName,'uphone':u.uphone})
-    cartid=request.GET.getlist('cartid')
-    cartid=json.loads(cartid[0])
+    cartstr=request.GET['cartid']
+    print(type(cartstr))
+    cartlist=cartstr.split(',')
+    print(cartlist)
+    cartid=[]
+    for str in cartlist:
+        cartid.append(int(str))
+    print(cartid)
     cartlist=CartInfo.objects.filter(pk__in=cartid)
     total=0
     totalcount=0

@@ -29,14 +29,12 @@
 					<tbody>
 						<tr>
 							<td width="55%">
-                                {% for list in orderlist %}
+                                {% for list in order.orderdetailinfo_set.all %}
 								<ul class="order_goods_list clearfix">
-                                    {% if order.id == list.orderId %}
-									<li class="col01"><img src="{{ list.gpic }}"></li>
-									<li class="col02">{{ list.gtitle }}<em>11.80元/500g</em></li>
-									<li class="col03">{{ list.gcount }}</li>
-									<li class="col04">{{ list.gprice }}元</li>
-                                    {% endif %}
+									<li class="col01"><img src="{{ list.goods.gpic }}"></li>
+									<li class="col02">{{ list.goods.gtitle }}<em>11.80元/500g</em></li>
+									<li class="col03">{{ list.count }}</li>
+									<li class="col04">{{ list.price }}元</li>
 								</ul>
 								{% endfor %}
 							</td>
