@@ -5,4 +5,5 @@ urlpatterns = [
     url(r'^$', views.cart),
     url(r'^delete$', views.delete),
     url(r'^change$', views.change),
+    # url(r'^test$', views.test),
 ]
