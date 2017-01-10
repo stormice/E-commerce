@@ -6,7 +6,7 @@
         $(function(){
             $.get('/GoodsShow/getsession/', function (session) {
                 if (session.uname != null) {
-                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 1},function (data) {
+                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 0},function (data) {
                         $('.goods_count').html(data.count);
                     });
                 }
@@ -20,7 +20,7 @@
                 $.get('/GoodsShow/getsession/', function (session) {
                     if (session.uname !=null)
                     {
-                         $.get('/GoodsShow/send/', {uname: session.uname, goodsId: goodsId, num: 0},
+                         $.get('/GoodsShow/send/', {uname: session.uname, goodsId: goodsId, num: 1},
                                  function(data){
                              $('.goods_count').html(data.count);
                          });

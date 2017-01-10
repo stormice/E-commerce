@@ -8,7 +8,7 @@
              {
                 if (session.uname != null)
                 {
-                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 1},
+                    $.get('/GoodsShow/send/', {uname: session.uname, goodsId:session.goodsId , num: 0},
                             function (data) { $('.goods_count').html(data.count); });
                 }
             });
@@ -149,7 +149,7 @@ $('.buy_btn').click(function(){
 			</div>
 			<div class="total">总价：<em>16.80元</em></div>
 			<div class="operate_btn">
-				<a href="/FreshOrder/?id={{ goods.id }}&num=" class="buy_btn">立即购买</a>
+				<a href="/FreshOrder/?id={{ goods.id }}&num=1" class="buy_btn">立即购买</a>
 				<a  class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
