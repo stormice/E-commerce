@@ -106,7 +106,7 @@ def send(request):
 
 
 def getsession(request):
-    request.session['uname'] = 'dada'
+    # request.session['uname'] = 'dada'
     # request.session.flush()
     uname = request.session.get('uname')
     goodsId = GoodsInfo.objects.all()[0].id

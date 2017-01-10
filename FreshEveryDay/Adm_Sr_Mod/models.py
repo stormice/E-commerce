@@ -56,8 +56,8 @@ class CartInfo(models.Model):
     count=models.IntegerField()
     class Meta():
         db_table = 'CartInfo'
-    def __str__(self):
-        return self.user;
+    # def __str__(self):
+    #     return self.user;
 
 
 

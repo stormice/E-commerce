@@ -1,8 +1,27 @@
-{% extends 'g_base_top_centersearch.html' %}
-    {% block header %}
+{#{% extends '/templates/GoodsShow/top_base.html' %}#}
+{% extends './GoodsShow/top_base.html' %}
+     {% block title %}
          <title>天天生鲜-首页</title>
-     {% endblock header %}
-{% block content_without_lsc %}
+          <script type="text/javascript" src="/static/js/slide.js"></script>
+      {% endblock title %}
+
+
+     {% block body_without_footer_inblock %}
+
+
+
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+		<div class="guest_cart fr">
+			<a href="/shopping_cart" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">1</div>
+		</div>
+	</div>
+
 	<div class="navbar_con">
 		<div class="navbar">
 			<h1 class="fl">全部商品分类</h1>
@@ -49,7 +68,7 @@
 				<span>|</span>
                 {% for goods in dic.data %}
 
-                <a href="/GoodsShow/detail{{ goods.id }}.html">{{ goods.gtitle}}</a>
+                <a href="#">{{ goods.gtitle}}</a>
                 {% endfor %}
 
 			</div>
@@ -73,8 +92,7 @@
 	</div>
    {% endfor%}
 
-{% endblock content_without_lsc %}
-{% block zzj %}
+
     {#	<script type="text/javascript" src="/static/js/slideshow.js"></script>#}
 	<script type="text/javascript">
 {#		BCSlideshow('focuspic');#}
@@ -92,5 +110,6 @@
 			window.location.href = 'list.html';
 		}
 	</script>
-{% endblock zzj %}
+
+{% endblock body_without_footer_inblock%}
 
