@@ -125,13 +125,23 @@ $(function () {
                 $idList.push($id);
             }
         });
-        // 通过ajax传递数据
+        // 判断用户是否选定商品
         if ($idList.length!=0){
-            $.get('/cart_order/',{'idList': $idList})
+            $(this).attr('href',function () {
+                return '/FreshOrder/FreshCart/?cartid='+$idList
+            });
         }
         else{
             alert('您还没选任何商品')
         }
+
+        // 通过ajax传递数据
+        // if ($idList.length!=0){
+        //     $.get('/shopping_cart/test',{'idList': $idList})
+        // }
+        // else{
+        //     alert('您还没选任何商品')
+        // }
     })
 
 });
