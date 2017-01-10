@@ -1,12 +1,6 @@
 /*.login_info{*/
     /*display: block;*/
 /*}*/
-.common_title2 a{
-    color:#666;
-}
-.common_title2 a:hover{
-    color:#f80;
-}
 #forget_botton{
     width: 50px;
     text-align: center;
@@ -33,4 +27,10 @@
     text-align: center;
     line-height: 30px;
     color: #fff;
+}
+.orderstyle{
+    float: right;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
 }
