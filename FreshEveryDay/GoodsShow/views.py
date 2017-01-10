@@ -93,7 +93,8 @@ def send(request):
         cart.user_id = userInfo.id
         cart.goods_id =goodsId
         cart.count=Count
-        cart.save()
+        if cart.count!=0:
+            cart.save()
         # print(cart.count)
         # context={'count': cart.count}
     cartSum = CartInfo.objects.filter(user_id=userInfo.id)
