@@ -47,7 +47,10 @@
             $('.minus').click(function(){
 {# 数量+1#}
                 $('.num_show').attr('value',function(){
-                return  parseInt($(this).val())-1});
+                    if (parseInt($(this).val())>1){
+                        return  parseInt($(this).val())-1
+                    }
+                });
 
                 var num=$('.num_show').attr('value');
 
@@ -65,9 +68,10 @@
 {#点击添加购物车 #}
 $('#add_cart').click(function(){
         $.get('/GoodsShow/getsession/', function (session) {
+            var num = $('.num_show').val();
              if (session.uname !=null)
              {
-                 $.get('/GoodsShow/send/', {uname: session.uname, goodsId: goodsId, num: num},
+                 $.get('/GoodsShow/send/', {'uname': session.uname, 'goodsId': goodsId, 'num': num},
                   function(data){ $('.goods_count').html(data.count); });
 
              }
